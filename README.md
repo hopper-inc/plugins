@@ -40,6 +40,7 @@ tools/
   check.mjs                          directory rules + manifest consistency + claude plugin validate
   sync.mjs                           refresh the skills' scripts/ and references/ from withhopper.com
   run-evals.mjs                      run the eval cases in Claude Code or Codex under your own login
+  package.mjs                        dist/hopper-inference-<version>.zip for the OpenAI plugin portal
 ```
 
 ## Develop
