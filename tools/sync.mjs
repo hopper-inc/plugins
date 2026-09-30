@@ -9,7 +9,8 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const plugin = resolve(dirname(fileURLToPath(import.meta.url)), "..", "hopper");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const plugin = join(root, "hopper");
 // Each skill carries its own copy, so it still works when a host installs one skill
 // folder on its own (npx skills, claude.ai skill uploads).
 const files = [
@@ -102,6 +103,34 @@ for (const [source, ...copies] of local) {
     if (have !== want) {
       drifted++;
       console.error("out of date: hopper/.codex-plugin/plugin.json (generated from plugin.json)");
+    }
+  } else {
+    mkdirSync(dirname(path), { recursive: true });
+    writeFileSync(path, want);
+  }
+}
+// hosted/marketplace.json: the same Claude marketplace, served at
+// https://withhopper.com/marketplace.json. A URL marketplace fetches only this file,
+// so each plugin points back at this repo with a git-subdir source.
+{
+  const market = JSON.parse(readFileSync(join(root, ".claude-plugin", "marketplace.json"), "utf8"));
+  const hosted = {
+    ...market,
+    plugins: market.plugins.map((p) => ({
+      ...p,
+      source: { source: "git-subdir", url: "https://github.com/hopper-inc/plugins.git", path: p.source.replace(/^\.\//, ""), ref: "main" },
+    })),
+  };
+  const want = JSON.stringify(hosted, null, 2) + "\n";
+  const path = join(root, "hosted", "marketplace.json");
+  if (check) {
+    let have = "";
+    try {
+      have = readFileSync(path, "utf8");
+    } catch {}
+    if (have !== want) {
+      drifted++;
+      console.error("out of date: hosted/marketplace.json (generated from .claude-plugin/marketplace.json)");
     }
   } else {
     mkdirSync(dirname(path), { recursive: true });

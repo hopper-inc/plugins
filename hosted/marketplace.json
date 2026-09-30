@@ -1,0 +1,40 @@
+{
+  "name": "hopper",
+  "owner": {
+    "name": "Hopper",
+    "email": "founders@withhopper.com",
+    "url": "https://withhopper.com"
+  },
+  "metadata": {
+    "description": "Hopper: fastest LLM for voice agents, plus text-to-speech and speech-to-text for any agent."
+  },
+  "plugins": [
+    {
+      "name": "hopper",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hopper-inc/plugins.git",
+        "path": "hopper",
+        "ref": "main"
+      },
+      "description": "Fastest LLM for voice agents: sub-100 ms time to first token, plus text-to-speech and speech-to-text any agent can use with no sign-up.",
+      "category": "development",
+      "homepage": "https://withhopper.com"
+    },
+    {
+      "name": "hopper-announce",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hopper-inc/plugins.git",
+        "path": "hopper-announce",
+        "ref": "main"
+      },
+      "description": "Claude Code says out loud when a long task finishes: one short sentence in a Hopper voice. Speaks only for tasks of 20 seconds or more; adjustable or off with one sentence.",
+      "category": "productivity",
+      "homepage": "https://withhopper.com"
+    }
+  ],
+  "renames": {
+    "hopper-inference": "hopper"
+  }
+}
