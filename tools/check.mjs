@@ -57,15 +57,19 @@ for (const key of ["composerIcon", "logo"]) {
 }
 if (!existsSync(join(plugin, openai.onboardingSkill ?? "-"))) fail("onboardingSkill must exist");
 
-// MCP: one remote server, the same URL in both formats.
-const mcpClaude = json("hopper-inference/.mcp.json").mcpServers;
-const mcpPortable = json("hopper-inference/mcp.json").mcpServers;
-for (const [name, server] of Object.entries(mcpClaude)) {
-  if (server.type !== "http" || !server.url?.startsWith("https://")) fail(`.mcp.json ${name}: type http, https url`);
-  if (mcpPortable[name]?.type !== "streamable-http" || mcpPortable[name]?.url !== server.url)
-    fail(`mcp.json ${name} must match .mcp.json (streamable-http, same url)`);
-}
-if (Object.keys(mcpClaude).join() !== Object.keys(mcpPortable).join()) fail("MCP server names differ between formats");
+// MCP: optional (the connector ships once withhopper.com/mcp is live). When present: one
+// remote server, the same URL in both formats.
+const hasMcp = existsSync(join(plugin, ".mcp.json"));
+const mcpClaude = hasMcp ? json("hopper-inference/.mcp.json").mcpServers : {};
+if (hasMcp) {
+  const mcpPortable = json("hopper-inference/mcp.json").mcpServers;
+  for (const [name, server] of Object.entries(mcpClaude)) {
+    if (server.type !== "http" || !server.url?.startsWith("https://")) fail(`.mcp.json ${name}: type http, https url`);
+    if (mcpPortable[name]?.type !== "streamable-http" || mcpPortable[name]?.url !== server.url)
+      fail(`mcp.json ${name} must match .mcp.json (streamable-http, same url)`);
+  }
+  if (Object.keys(mcpClaude).join() !== Object.keys(mcpPortable).join()) fail("MCP server names differ between formats");
+} else if (existsSync(join(plugin, "mcp.json"))) fail("mcp.json without .mcp.json");
 
 // Marketplaces point at the plugin by the same name.
 const ccMarket = json(".claude-plugin/marketplace.json");
@@ -81,7 +85,7 @@ if (cursorEntry?.source !== "./hopper-inference") fail("Cursor marketplace entry
 
 // MCP Registry listing: same server, same version.
 const server = json("server.json");
-if (server.remotes?.[0]?.url !== mcpClaude.hopper?.url) fail("server.json remote must match the plugin's MCP url");
+if (hasMcp && server.remotes?.[0]?.url !== mcpClaude.hopper?.url) fail("server.json remote must match the plugin's MCP url");
 if (server.version !== portable.version) fail("server.json version must match the plugin version");
 if ((server.description ?? "").length > 100) fail("server.json description over 100 chars");
 

@@ -4,7 +4,7 @@ Plugins for [Hopper](https://withhopper.com): fast open-source LLM inference for
 
 | Plugin | What it does |
 | :--- | :--- |
-| [`hopper-inference`](hopper-inference/) | The fastest LLM for voice agents, and a voice and ears for any agent: set Hopper up in a voice-agent project, benchmark and diagnose time to first token, speak text and transcribe recordings. Skills plus the Hopper MCP connector. |
+| [`hopper-inference`](hopper-inference/) | The fastest LLM for voice agents, and a voice and ears for any agent: set Hopper up in a voice-agent project, benchmark and diagnose time to first token, speak text and transcribe recordings. Skills that call Hopper's API directly. |
 | [`hopper-announce`](hopper-announce/) | Claude Code says out loud when a long task finishes. Claude Code only (hooks). |
 
 ## Install
@@ -15,7 +15,6 @@ Plugins for [Hopper](https://withhopper.com): fast open-source LLM inference for
 | Codex | `codex plugin marketplace add hopper-inc/plugins` then `codex plugin add hopper-inference@hopper` |
 | Cursor, VS Code / Copilot | Add the marketplace `hopper-inc/plugins` |
 | Any agent that reads Agent Skills | `npx skills add hopper-inc/plugins` |
-| Any MCP client | `https://withhopper.com/mcp` (Streamable HTTP) |
 
 No plugin? Paste this into your coding agent:
 
@@ -29,11 +28,10 @@ Set up Hopper in this project using https://withhopper.com/skill.md
 .claude-plugin/marketplace.json      Claude Code marketplace
 .agents/plugins/marketplace.json     Codex marketplace
 .cursor-plugin/marketplace.json      Cursor marketplace
-server.json                          MCP Registry listing (com.withhopper/hopper)
+server.json                          MCP Registry listing (com.withhopper/hopper), for when the connector ships
 hopper-inference/
   .claude-plugin/plugin.json         Claude Code manifest
   plugin.json                        Agent Plugins manifest + OpenAI listing (Codex, ChatGPT, Cursor, Copilot)
-  .mcp.json · mcp.json               the Hopper MCP server, in each format
   skills/<skill>/                    hopper-{integrate,benchmark,diagnose,speak,transcribe}, each self-contained:
     scripts/ · references/           copies of https://withhopper.com/agents/*
   .codex-plugin/plugin.json          Codex layout, generated from plugin.json by tools/sync.mjs

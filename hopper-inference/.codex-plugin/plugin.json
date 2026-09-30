@@ -30,7 +30,6 @@
     "transcription"
   ],
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Hopper",
     "shortDescription": "Fastest LLM for voice agents",

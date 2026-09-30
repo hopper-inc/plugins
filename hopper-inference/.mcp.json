@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "hopper": {
-      "type": "http",
-      "url": "https://withhopper.com/mcp"
-    }
-  }
-}

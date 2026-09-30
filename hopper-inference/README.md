@@ -1,6 +1,6 @@
 # Hopper
 
-The fastest LLM for voice agents, and a voice and ears for any agent. Hopper serves `gemma-4-31b` behind an OpenAI-compatible API with time to first token under 100 ms on a warm connection, plus text-to-speech and speech-to-text. An agent can start using it on its own: the first run registers a trial key ($2 credit) with no sign-up. Works in Claude Code, Codex, ChatGPT, Claude and Cursor.
+The fastest LLM for voice agents, and a voice and ears for any agent. Hopper serves `gemma-4-31b` behind an OpenAI-compatible API with time to first token under 100 ms on a warm connection, plus text-to-speech and speech-to-text. An agent can start using it on its own: the first run registers a trial key ($2 credit) with no sign-up. Works in Claude Code, Codex and Cursor, and anywhere Agent Skills run.
 
 ## Skills
 
@@ -16,20 +16,7 @@ In Claude Code they are also commands, such as `/hopper-inference:hopper-integra
 
 ## Connector
 
-The plugin connects the Hopper MCP server at `https://withhopper.com/mcp`, for hosts without a shell such as ChatGPT and Claude:
-
-| Tool | Sign-in | What it does |
-| :--- | :--- | :--- |
-| `speak` | No | Text to speech, returned as audio and a short-lived link |
-| `transcribe` | No | Speech to text from a WAV URL or upload, with word timestamps |
-| `list_voices` | No | The ready voices |
-| `list_models` | No | Models, context length, prices |
-| `get_integration_guide` | No | The tested integration code for LiveKit Agents, Pipecat, Vapi or the OpenAI SDK |
-| `review_voice_agent_config` | No | Checks a system prompt, tools and client code for latency problems |
-| `get_account` | Yes | Credits, spend and API keys (masked) |
-| `create_api_key` | Yes | Creates an API key on your account and shows it once |
-
-Without sign-in, speech and transcription run on a small free daily allowance; signing in with your Hopper account (OAuth) bills your own credits.
+A Hopper MCP connector for hosts without a shell (ChatGPT, Claude chat) is coming in the next version. The skills above call Hopper's API directly and don't need it.
 
 ## Install
 
@@ -49,7 +36,6 @@ Everything it runs is readable Python in the skills' `scripts/` folders: standar
 - **`hopper_claim.py`**, only if you choose to keep the key, sends your email address and the saved claim token to `https://withhopper.com/agent/identity/claim` and `https://withhopper.com/oauth2/token`, then writes the account key to `.env`.
 - **`hopper_voice.py`** (speak, transcribe) sends the text to speak to `https://api.withhopper.com/v1/audio/speech`, or the audio to transcribe to `https://api.withhopper.com/v1/audio/transcriptions`. It uses `HOPPER_API_KEY` or the project's `.env` if present; otherwise it registers a trial key the same way and keeps it in `~/.config/hopper/` (mode 600), never in the project. Its `claim` command moves that key to your account.
 - **`hopper-integrate`** runs `pip install openai h2` in the project's virtualenv, and after your go edits the file that builds the LLM client.
-- **The connector** receives the arguments of the tool you call, and nothing else.
 
 Requests to Hopper are handled under the [privacy policy](https://withhopper.com/privacy). Nothing else leaves your machine, and the plugin has no telemetry.
 

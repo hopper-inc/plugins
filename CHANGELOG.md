@@ -6,7 +6,7 @@ Versions follow the `version` in each plugin's manifest; `tools/check.mjs` keeps
 
 ### hopper-inference
 - Skills: `hopper-integrate`, `hopper-benchmark`, `hopper-diagnose`, `hopper-speak`, `hopper-transcribe`.
-- Connector: the Hopper MCP server at `https://withhopper.com/mcp`.
+- The Hopper MCP connector is held for the next version, until `https://withhopper.com/mcp` is live.
 - Manifests for Claude Code, Codex and ChatGPT (portable `plugin.json` and `.codex-plugin/`), Cursor, and the MCP Registry.
 
 ### hopper-announce

@@ -5,7 +5,7 @@
 //   node tools/sync.mjs            download the published files into the plugin
 //   node tools/sync.mjs --check    exit 1 if a bundled copy differs from the published one
 //   node tools/sync.mjs --from <frontend checkout>   copy from public/agents/ instead
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -89,7 +89,7 @@ for (const [source, ...copies] of local) {
     license: portable.license,
     keywords: portable.keywords,
     skills: "./skills/",
-    mcpServers: "./.mcp.json",
+    ...(existsSync(join(plugin, ".mcp.json")) ? { mcpServers: "./.mcp.json" } : {}),
     ...openai,
   };
   const want = JSON.stringify(codex, null, 2) + "\n";
