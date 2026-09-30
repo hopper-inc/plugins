@@ -1,6 +1,6 @@
 ---
-name: diagnose
-description: Find what makes a voice agent's LLM slow to start responding, by reading the project's code, prompt and tools, and list fixes ranked by the latency they recover. Use when the user reports slow responses, long pauses, dead air or high time to first token in a Pipecat, LiveKit Agents, Vapi or OpenAI-SDK voice agent, or asks for a latency review. Works whichever LLM provider the project uses.
+name: hopper-diagnose
+description: 'Find what delays a voice agent''s first spoken word: timestamps or IDs at the top of the prompt, a new client per call, HTTP/1.1, no warm-up, thinking left on, tools named but not sent. Ranks fixes by the latency they recover. Works with any LLM provider, needs no key, and edits nothing until the user picks fixes. Use when the user reports "long pauses", "dead air", "the first reply is slow" or asks for a latency review of a voice agent.'
 ---
 
 # Diagnose voice-agent LLM latency
@@ -45,4 +45,4 @@ Fix 1–<n> now? The rest need <what>.
 
 - Rank by the latency recovered: per-turn issues (1, 2, 8, 9) before first-turn issues (3–6).
 - Say "no issues found" for a clean project; don't pad the list.
-- To measure instead of estimate, the `benchmark` skill in this plugin times the agent's own prompt on Hopper.
+- To measure instead of estimate, the `hopper-benchmark` skill in this plugin times the agent's own prompt on Hopper.

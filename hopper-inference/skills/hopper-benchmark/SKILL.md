@@ -1,6 +1,6 @@
 ---
-name: benchmark
-description: Measure a voice agent's LLM time to first token on Hopper with the agent's own system prompt and tools, over a simulated 10-turn phone call, and report first-turn and later-turn latency and the prompt-cache hit rate. Use when the user asks to benchmark, measure or compare TTFT or LLM latency for a voice agent, or to check prompt caching, before or after a change.
+name: hopper-benchmark
+description: 'Measure a voice agent''s LLM time to first token on Hopper with its own system prompt and tools over a simulated 10-turn call, and report first-turn and later-turn latency and the prompt-cache hit rate. Changes no code. Use when the user asks "how fast would my agent be on Hopper", "benchmark TTFT", "is prompt caching working" or wants before/after numbers. Not for STT/TTS latency or load tests; to switch the agent to Hopper, use hopper-integrate.'
 allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_trial.py) Bash(python ${CLAUDE_SKILL_DIR}/scripts/hopper_ttft.py *) Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_ttft.py *)
 ---
 
@@ -56,4 +56,4 @@ Read the output this way:
 - A cache hit under 95% on later turns means the prompt's start changes between turns: look for a timestamp, call ID or random value near the top.
 - Turns with no text mean the prompt calls tools that weren't passed with `--tools`.
 
-To make these numbers hold in production, the `integrate` skill in this plugin switches the project's client; the `diagnose` skill finds what else slows it down.
+To make these numbers hold in production, the `hopper-integrate` skill in this plugin switches the project's client; the `hopper-diagnose` skill finds what else slows it down.

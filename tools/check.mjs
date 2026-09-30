@@ -85,13 +85,21 @@ if (server.remotes?.[0]?.url !== mcpClaude.hopper?.url) fail("server.json remote
 if (server.version !== portable.version) fail("server.json version must match the plugin version");
 if ((server.description ?? "").length > 100) fail("server.json description over 100 chars");
 
+// hopper-announce: Claude Code only (hooks), so it's listed in the Claude marketplace alone.
+const announce = json("hopper-announce/.claude-plugin/plugin.json");
+if (ccMarket.plugins.find((p) => p.name === announce.name)?.source !== "./hopper-announce") fail("Claude marketplace must list hopper-announce");
+if (oaMarket.plugins.some((p) => p.name === announce.name)) fail("hopper-announce uses hooks: keep it out of the Codex marketplace");
+
 // Files: what the Claude directory blocks or holds.
 const files = [];
+function checkPlugin(plugin) {
+const name0 = relative(root, plugin);
+const before = files.length;
 (function walk(dir) {
   for (const name of readdirSync(dir)) {
     const path = join(dir, name);
     const rel = relative(plugin, path);
-    if (rel === join("evals", "results")) continue; // gitignored run output
+    if (rel === join("evals", "results") || name === "__pycache__") continue; // gitignored output
     if (/^(\.DS_Store|Thumbs\.db|desktop\.ini|__MACOSX)$/.test(name)) fail(`system file: ${rel}`);
     if (!/^[\w.-]+$/.test(name)) fail(`file name not portable: ${rel}`);
     const stat = lstatSync(path);
@@ -106,13 +114,13 @@ const files = [];
     }
   }
 })(plugin);
-if (files.length > 512) fail(`${files.length} files (max 512)`);
-const lower = files.map((f) => f.toLowerCase());
+if (files.length - before > 512) fail(`${name0}: ${files.length - before} files (max 512)`);
+const lower = files.slice(before).map((f) => f.toLowerCase());
 if (new Set(lower).size !== lower.length) fail("two file names differ only by case");
 
 const readme = readFileSync(join(plugin, "README.md"), "utf8").replace(/```[\s\S]*?```/g, "");
-if (readme.split(/\s+/).filter(Boolean).length < 40) fail("README under 40 words outside code blocks");
-if (!existsSync(join(plugin, "LICENSE"))) fail("LICENSE missing");
+if (readme.split(/\s+/).filter(Boolean).length < 40) fail(`${name0}: README under 40 words outside code blocks`);
+if (!existsSync(join(plugin, "LICENSE"))) fail(`${name0}: LICENSE missing`);
 
 // Skills: portable frontmatter, and every bundled path they name exists.
 const portableKeys = new Set(["name", "description", "license", "compatibility", "metadata", "allowed-tools"]);
@@ -121,22 +129,30 @@ for (const skill of readdirSync(join(plugin, "skills"))) {
   const text = readFileSync(join(dir, "SKILL.md"), "utf8");
   const front = text.match(/^---\n([\s\S]*?)\n---\n/);
   if (!front) {
-    fail(`skills/${skill}: no frontmatter`);
+    fail(`${name0}/skills/${skill}: no frontmatter`);
     continue;
   }
   const fields = Object.fromEntries(
-    front[1].split("\n").map((line) => [line.slice(0, line.indexOf(":")), line.slice(line.indexOf(":") + 1).trim()]),
+    front[1].split("\n").map((line) => {
+      const value = line.slice(line.indexOf(":") + 1).trim();
+      const quoted = value.match(/^'(.*)'$/);
+      return [line.slice(0, line.indexOf(":")), quoted ? quoted[1].replaceAll("''", "'") : value];
+    }),
   );
-  for (const key of Object.keys(fields)) if (!portableKeys.has(key)) fail(`skills/${skill}: non-portable key ${key}`);
-  if (fields.name !== skill) fail(`skills/${skill}: name must match the folder`);
-  if (!fields.description || fields.description.length > 1024) fail(`skills/${skill}: description 1–1024 chars`);
-  if (/\bcurl\b|\bwget\b/.test(text)) fail(`skills/${skill}: downloads at run time`);
+  if (/^description: [^'"].*: /m.test(front[1])) fail(`${name0}/skills/${skill}: quote the description (it contains ": ")`);
+  for (const key of Object.keys(fields)) if (!portableKeys.has(key)) fail(`${name0}/skills/${skill}: non-portable key ${key}`);
+  if (fields.name !== skill) fail(`${name0}/skills/${skill}: name must match the folder`);
+  if (!fields.description || fields.description.length > 1024) fail(`${name0}/skills/${skill}: description 1–1024 chars`);
+  if (/\bcurl\b|\bwget\b/.test(text)) fail(`${name0}/skills/${skill}: downloads at run time`);
   for (const [, path] of text.matchAll(/\$\{CLAUDE_SKILL_DIR\}\/([\w./-]+\.(?:py|md))/g))
-    if (!existsSync(join(dir, path))) fail(`skills/${skill}: ${path} doesn't exist`);
+    if (!existsSync(join(dir, path))) fail(`${name0}/skills/${skill}: ${path} doesn't exist`);
   for (const [, name] of text.matchAll(/`(\w[\w-]*\.md)`/g))
     if (name !== "SKILL.md" && !existsSync(join(dir, "references", name)) && !existsSync(join(dir, name)))
-      fail(`skills/${skill}: ${name} doesn't exist`);
+      fail(`${name0}/skills/${skill}: ${name} doesn't exist`);
 }
+}
+checkPlugin(plugin);
+checkPlugin(join(root, "hopper-announce"));
 
 if (errors.length) {
   for (const message of errors) console.error(`✗ ${message}`);
@@ -150,4 +166,4 @@ try {
   console.log("claude not installed: skipped `claude plugin validate`");
   process.exit(0);
 }
-for (const target of [plugin, root]) execFileSync("claude", ["plugin", "validate", "--strict", target], { stdio: "inherit" });
+for (const target of [plugin, join(root, "hopper-announce"), root]) execFileSync("claude", ["plugin", "validate", "--strict", target], { stdio: "inherit" });

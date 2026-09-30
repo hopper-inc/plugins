@@ -2,3 +2,4 @@
 node_modules/
 dist/
 hopper-inference/evals/results/
+__pycache__/

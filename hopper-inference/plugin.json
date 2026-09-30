@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hopper-inference",
   "version": "1.0.0",
-  "description": "Connect a voice agent's LLM to Hopper, measure its time to first token on the agent's own prompt, and fix what slows it down.",
+  "description": "Fastest LLM for voice agents: sub-100 ms time to first token, plus text-to-speech and speech-to-text any agent can use with no sign-up.",
   "author": {
     "name": "Hopper",
     "email": "founders@withhopper.com",
@@ -23,17 +23,23 @@
     "livekit",
     "vapi",
     "openai-compatible",
-    "gemma"
+    "gemma",
+    "text to speech",
+    "speech to text",
+    "tts",
+    "stt",
+    "transcription"
   ],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Hopper",
-        "shortDescription": "Fast LLM for voice agents",
-        "longDescription": "Hopper serves open-source LLMs behind an OpenAI-compatible API built for real-time voice: gemma-4-31b with prompt caching, so every turn of a call, the first included, starts in well under 100 ms on a warm connection. In a coding agent (Codex, Claude Code), the plugin sets Hopper up in an existing voice-agent project. It gets a trial API key with $2 of credit without a sign-up, runs a 10-turn simulated call on the agent's own system prompt and tools to measure time to first token, and shows the results before it changes any code. After the user says go, it switches only the LLM in LiveKit Agents, Pipecat, Vapi or OpenAI SDK projects; speech-to-text, text-to-speech and tools stay as they are. It can also review a voice agent for the things that make responses start late: HTTP/1.1 clients, prompts whose prefix changes every turn, missing warm-ups, thinking left on. The Hopper connector lists models and prices, returns tested integration code, reviews a system prompt and tools for latency problems, and, once you sign in, shows credits and usage and creates API keys. Requires Python 3.9+ and network access to withhopper.com for the benchmark. The benchmark sends the agent's system prompt and tools to Hopper's API; keeping the trial key asks for the user's email.",
+        "shortDescription": "Fastest LLM for voice agents",
+        "longDescription": "The fastest LLM for voice agents: Hopper serves gemma-4-31b behind an OpenAI-compatible API with time to first token under 100 ms on a warm connection, plus text-to-speech and speech-to-text. In a voice-agent project the plugin gets a trial key with no sign-up, benchmarks your agent's own prompt, and switches the LLM once you say go (Pipecat, LiveKit Agents, Vapi, OpenAI SDK). It also finds what makes your agent pause, and gives your agent its own voice and ears: speak text aloud or transcribe a recording, with no account.",
         "developerName": "Hopper",
         "category": "Developer Tools",
         "capabilities": [
+          "Interactive",
           "Read",
           "Write"
         ],
@@ -42,15 +48,15 @@
         "privacyPolicyURL": "https://withhopper.com/privacy",
         "termsOfServiceURL": "https://withhopper.com/terms",
         "defaultPrompt": [
-          "Benchmark time to first token on my voice agent with Hopper",
-          "Why does my voice agent take so long to start talking?",
-          "Switch my voice agent's LLM to Hopper"
+          "Make my voice agent respond faster with Hopper",
+          "Why does my voice agent pause before answering?",
+          "Say \"Thanks for calling, how can I help?\" in a Hopper voice"
         ],
         "brandColor": "#3B82F6",
         "composerIcon": "./assets/icon.png",
         "logo": "./assets/logo.png"
       },
-      "onboardingSkill": "./skills/integrate/SKILL.md",
+      "onboardingSkill": "./skills/hopper-integrate/SKILL.md",
       "review": {
         "test_cases": {
           "positive": [

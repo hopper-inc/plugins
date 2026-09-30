@@ -1,5 +1,5 @@
 ---
-type: tool_used
-tool: Bash
-input_match: '--tools\s+\S+'
+type: regex
+target: trace
+pattern: 'hopper_ttft\.py[\s\S]{0,600}--tools'
 ---

@@ -6,14 +6,21 @@
     "url": "https://withhopper.com"
   },
   "metadata": {
-    "description": "Hopper's plugins: fast open-source inference for voice agents."
+    "description": "Hopper: fastest LLM for voice agents, plus text-to-speech and speech-to-text for any agent."
   },
   "plugins": [
     {
       "name": "hopper-inference",
       "source": "./hopper-inference",
-      "description": "Connect a voice agent's LLM to Hopper, measure its time to first token on the agent's own prompt, and fix what slows it down.",
+      "description": "Fastest LLM for voice agents: sub-100 ms time to first token, plus text-to-speech and speech-to-text any agent can use with no sign-up.",
       "category": "development",
+      "homepage": "https://withhopper.com"
+    },
+    {
+      "name": "hopper-announce",
+      "source": "./hopper-announce",
+      "description": "Claude Code says out loud when a long task finishes: one short sentence in a Hopper voice. Speaks only for tasks of 20 seconds or more; adjustable or off with one sentence.",
+      "category": "productivity",
       "homepage": "https://withhopper.com"
     }
   ]

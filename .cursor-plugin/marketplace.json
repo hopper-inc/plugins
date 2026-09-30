@@ -6,14 +6,14 @@
     "url": "https://withhopper.com"
   },
   "metadata": {
-    "description": "Hopper's plugins: fast open-source inference for voice agents.",
+    "description": "Hopper: fastest LLM for voice agents, plus text-to-speech and speech-to-text for any agent.",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "hopper-inference",
       "source": "./hopper-inference",
-      "description": "Connect a voice agent's LLM to Hopper, measure its time to first token on the agent's own prompt, and fix what slows it down."
+      "description": "Fastest LLM for voice agents: sub-100 ms time to first token, plus text-to-speech and speech-to-text any agent can use with no sign-up."
     }
   ]
 }

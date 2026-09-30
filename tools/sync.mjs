@@ -5,7 +5,7 @@
 //   node tools/sync.mjs            download the published files into the plugin
 //   node tools/sync.mjs --check    exit 1 if a bundled copy differs from the published one
 //   node tools/sync.mjs --from <frontend checkout>   copy from public/agents/ instead
-import { readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -13,14 +13,14 @@ const plugin = resolve(dirname(fileURLToPath(import.meta.url)), "..", "hopper-in
 // Each skill carries its own copy, so it still works when a host installs one skill
 // folder on its own (npx skills, claude.ai skill uploads).
 const files = [
-  ["hopper_trial.py", "skills/integrate/scripts"],
-  ["hopper_claim.py", "skills/integrate/scripts"],
-  ["hopper_ttft.py", "skills/integrate/scripts"],
-  ["hopper_trial.py", "skills/benchmark/scripts"],
-  ["hopper_ttft.py", "skills/benchmark/scripts"],
+  ["hopper_trial.py", "skills/hopper-integrate/scripts"],
+  ["hopper_claim.py", "skills/hopper-integrate/scripts"],
+  ["hopper_ttft.py", "skills/hopper-integrate/scripts"],
+  ["hopper_trial.py", "skills/hopper-benchmark/scripts"],
+  ["hopper_ttft.py", "skills/hopper-benchmark/scripts"],
   ...["livekit.md", "pipecat.md", "vapi.md", "openai-sdk.md"].flatMap((page) => [
-    [page, "skills/integrate/references"],
-    [page, "skills/diagnose/references"],
+    [page, "skills/hopper-integrate/references"],
+    [page, "skills/hopper-diagnose/references"],
   ]),
 ];
 const fromIndex = process.argv.indexOf("--from");
@@ -49,6 +49,62 @@ for (const [name, folder] of files) {
       console.error(`out of date: hopper-inference/${folder}/${name}`);
     }
   } else {
+    writeFileSync(path, want);
+  }
+}
+// Files that originate in this repo and are shared between skills: the first path is
+// the source, the rest are copies.
+const local = [["skills/hopper-speak/scripts/hopper_voice.py", "skills/hopper-transcribe/scripts/hopper_voice.py", "../hopper-announce/scripts/hopper_voice.py"]];
+for (const [source, ...copies] of local) {
+  const want = readFileSync(join(plugin, source), "utf8");
+  for (const copy of copies) {
+    const path = join(plugin, copy);
+    if (check) {
+      let have = "";
+      try {
+        have = readFileSync(path, "utf8");
+      } catch {}
+      if (have !== want) {
+        drifted++;
+        console.error(`out of date: hopper-inference/${copy} (source: ${source})`);
+      }
+    } else {
+      mkdirSync(dirname(path), { recursive: true });
+      writeFileSync(path, want);
+    }
+  }
+}
+// .codex-plugin/plugin.json: the layout every plugin in openai/plugins uses, generated from
+// plugin.json (Codex prefers the inline extensions.com.openai when both exist).
+{
+  const portable = JSON.parse(readFileSync(join(plugin, "plugin.json"), "utf8"));
+  const { review, publication, onboardingSkill, ...openai } = portable.extensions["com.openai"];
+  const codex = {
+    name: portable.name,
+    version: portable.version,
+    description: portable.description,
+    author: portable.author,
+    homepage: portable.homepage,
+    repository: portable.repository,
+    license: portable.license,
+    keywords: portable.keywords,
+    skills: "./skills/",
+    mcpServers: "./.mcp.json",
+    ...openai,
+  };
+  const want = JSON.stringify(codex, null, 2) + "\n";
+  const path = join(plugin, ".codex-plugin", "plugin.json");
+  if (check) {
+    let have = "";
+    try {
+      have = readFileSync(path, "utf8");
+    } catch {}
+    if (have !== want) {
+      drifted++;
+      console.error("out of date: hopper-inference/.codex-plugin/plugin.json (generated from plugin.json)");
+    }
+  } else {
+    mkdirSync(dirname(path), { recursive: true });
     writeFileSync(path, want);
   }
 }

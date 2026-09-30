@@ -1,0 +1,86 @@
+[
+  {
+    "prompt": "Make my voice agent respond faster by moving its LLM to Hopper.",
+    "skill": "hopper-integrate"
+  },
+  {
+    "prompt": "Set up Hopper in this project.",
+    "skill": "hopper-integrate"
+  },
+  {
+    "prompt": "Swap this bot's LLM for Hopper's gemma model.",
+    "skill": "hopper-integrate"
+  },
+  {
+    "prompt": "How fast would this agent's LLM be on Hopper? Just measure it, don't change anything.",
+    "skill": "hopper-benchmark"
+  },
+  {
+    "prompt": "Is prompt caching working for my agent on Hopper? I want numbers.",
+    "skill": "hopper-benchmark"
+  },
+  {
+    "prompt": "Benchmark time to first token for this bot on Hopper.",
+    "skill": "hopper-benchmark"
+  },
+  {
+    "prompt": "Callers say there's dead air before the bot answers. Why?",
+    "skill": "hopper-diagnose"
+  },
+  {
+    "prompt": "Review my voice agent for anything that slows the first reply.",
+    "skill": "hopper-diagnose"
+  },
+  {
+    "prompt": "The first reply of every call is slow. What's wrong with my setup?",
+    "skill": "hopper-diagnose"
+  },
+  {
+    "prompt": "Read the first line of prompt.txt aloud.",
+    "skill": "hopper-speak"
+  },
+  {
+    "prompt": "Make an audio file that says 'Welcome to Bright Smile Dental'.",
+    "skill": "hopper-speak"
+  },
+  {
+    "prompt": "Which voice would sound best for a dental receptionist? Let me hear two options.",
+    "skill": "hopper-speak"
+  },
+  {
+    "prompt": "What does voicemail.wav say?",
+    "skill": "hopper-transcribe"
+  },
+  {
+    "prompt": "Transcribe standup.m4a.",
+    "skill": "hopper-transcribe"
+  },
+  {
+    "prompt": "Summarize the call in call.wav.",
+    "skill": "hopper-transcribe"
+  },
+  {
+    "prompt": "Write a short speech for my sister's wedding.",
+    "skill": null
+  },
+  {
+    "prompt": "Add type hints to tools.py.",
+    "skill": null
+  },
+  {
+    "prompt": "Benchmark how long my Postgres queries take.",
+    "skill": null
+  },
+  {
+    "prompt": "Explain what the pipeline in bot.py does.",
+    "skill": null
+  },
+  {
+    "prompt": "Set up ElevenLabs text-to-speech in this bot instead of Cartesia.",
+    "skill": null
+  },
+  {
+    "prompt": "Fix any typos in prompt.txt.",
+    "skill": null
+  }
+]

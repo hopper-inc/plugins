@@ -1,0 +1,22 @@
+{
+  "name": "hopper-announce",
+  "displayName": "Hopper Announce",
+  "version": "1.0.0",
+  "description": "Claude Code says out loud when a long task finishes: one short sentence in a Hopper voice. Speaks only for tasks of 20 seconds or more; adjustable or off with one sentence.",
+  "author": {
+    "name": "Hopper",
+    "email": "founders@withhopper.com",
+    "url": "https://withhopper.com"
+  },
+  "homepage": "https://withhopper.com",
+  "repository": "https://github.com/hopper-inc/plugins",
+  "license": "MIT",
+  "keywords": [
+    "text to speech",
+    "notifications",
+    "voice",
+    "announce",
+    "tts",
+    "claude code"
+  ]
+}

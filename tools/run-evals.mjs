@@ -9,7 +9,7 @@
 // this plugin loaded (--baseline: without it), and scores the graders. `llm` graders are
 // judged by `claude -p` (one vote); set --judge none to skip them.
 import { execFileSync, spawn } from "node:child_process";
-import { copyFileSync, existsSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -77,12 +77,14 @@ function codexHome() {
 }
 
 // Normalizes a host transcript to { reply, skills[], commands[], edits }.
-async function execute(prompt, workspace, timeout) {
+async function execute(prompt, workspace, timeout, maxTurns) {
+  const runEnv = { HOPPER_CONFIG_DIR: `${workspace}.hopper-config` };
+  mkdirSync(runEnv.HOPPER_CONFIG_DIR, { mode: 0o700 });
   if (host === "codex") {
     const { stdout } = await run(
       "codex",
-      ["exec", "--json", "--skip-git-repo-check", "-s", "workspace-write", "-c", "sandbox_workspace_write.network_access=true", prompt],
-      { cwd: workspace, env: codexHome(), timeout },
+      ["exec", "--json", "--skip-git-repo-check", "-s", "workspace-write", "-c", "sandbox_workspace_write.network_access=true", "--add-dir", runEnv.HOPPER_CONFIG_DIR, prompt],
+      { cwd: workspace, env: { ...codexHome(), ...runEnv }, timeout },
     );
     const events = jsonLines(stdout).filter((e) => e.type === "item.completed");
     const commands = events.filter((e) => e.item?.type === "command_execution").map((e) => e.item.command);
@@ -97,7 +99,8 @@ async function execute(prompt, workspace, timeout) {
   }
   const args = ["-p", prompt, "--output-format", "stream-json", "--verbose", "--allowedTools", "Bash Read Write Edit Glob Grep Skill"];
   if (!baseline) args.push("--plugin-dir", plugin);
-  const { stdout } = await run("claude", args, { cwd: workspace, env: process.env, timeout });
+  if (maxTurns) args.push("--max-turns", String(maxTurns));
+  const { stdout } = await run("claude", args, { cwd: workspace, env: { ...process.env, ...runEnv }, timeout });
   const uses = jsonLines(stdout)
     .filter((e) => e.type === "assistant")
     .flatMap((e) => e.message.content.filter((c) => c.type === "tool_use"));
@@ -136,19 +139,49 @@ async function grade(dir, workspace, t) {
       const found = new RegExp(g.pattern, g.flags ?? "").test(text);
       results.push([name, g.match === "not_contains" ? !found : found]);
     } else if (g.type === "tool_used" && g.tool === "Skill") {
-      const want = new RegExp(`^(?:${(g.input_match ?? "").match(/\)\?([\w|-]+)"?/)?.[1] ?? g.input_match ?? "[\\w-]+"})$`);
+      const exact = (g.input_match ?? "").match(/\)\?([\w|-]+)"?/)?.[1];
+      const want = exact ? new RegExp(`^(?:${exact})$`) : new RegExp(g.input_match ?? ".");
       if (baseline && g.max === undefined) continue; // with-only: there's no plugin to fire
       results.push([name, within(t.skills.filter((s) => want.test(s)).length, g)]);
     } else if (g.type === "tool_used" && g.tool === "Bash") {
       results.push([name, within(t.commands.filter((c) => new RegExp(g.input_match ?? ".").test(c)).length, g)]);
     } else if (g.type === "tool_used" && (g.tool === "Edit" || g.tool === "Write")) {
       results.push([name, within(t.edits, g)]);
+    } else if (g.type === "file_exists") {
+      const exists = existsSync(join(workspace, g.path));
+      results.push([name, g.exists === "false" ? !exists : exists]);
     } else if (g.type === "llm") {
       if (judgeModel === "none") results.push([name, null, "judge skipped"]);
       else results.push([name, ...(await judge(body.trim(), text))]);
     } else results.push([name, null, `unsupported grader ${g.type}`]);
   }
   return results;
+}
+
+// --triggers: which skill loads for each prompt in evals/triggers.json (null = none should).
+// Runs stop early (Claude --max-turns 2, Codex after the timeout); only the skill choice is scored.
+if (process.argv.includes("--triggers")) {
+  const prompts = JSON.parse(readFileSync(join(evals, "triggers.json"), "utf8"));
+  const queue = prompts.map((p, i) => [p, i]);
+  const rows = [];
+  await Promise.all(
+    Array.from({ length: concurrency }, async () => {
+      while (queue.length) {
+        const [p, i] = queue.shift();
+        const workspace = mkdtempSync(join(tmpdir(), `trigger-${host}-`));
+        execFileSync("bash", [join(evals, "_triggers-scaffold.sh")], { cwd: workspace, stdio: "ignore" });
+        const t = await execute(p.prompt, workspace, 90_000, 2);
+        const fired = [...new Set(t.skills.filter((s) => s.startsWith("hopper-")))];
+        const ok = p.skill ? fired.length === 1 && fired[0] === p.skill : fired.length === 0;
+        rows[i] = { ...p, fired, ok };
+        console.log(`${ok ? "✓" : "✗"} ${p.skill ?? "(none)"} ← "${p.prompt}"${ok ? "" : `  fired: ${fired.join(", ") || "nothing"}`}`);
+      }
+    }),
+  );
+  const pos = rows.filter((r) => r.skill);
+  const neg = rows.filter((r) => !r.skill);
+  console.log(`\nrecall ${pos.filter((r) => r.ok).length}/${pos.length} · clean negatives ${neg.filter((r) => r.ok).length}/${neg.length}`);
+  process.exit(rows.every((r) => r.ok) ? 0 : 1);
 }
 
 const cases = readdirSync(evals)

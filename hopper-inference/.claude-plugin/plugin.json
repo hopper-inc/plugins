@@ -2,7 +2,7 @@
   "name": "hopper-inference",
   "displayName": "Hopper",
   "version": "1.0.0",
-  "description": "Connect a voice agent's LLM to Hopper, measure its time to first token on the agent's own prompt, and fix what slows it down.",
+  "description": "Fastest LLM for voice agents: sub-100 ms time to first token, plus text-to-speech and speech-to-text any agent can use with no sign-up.",
   "author": {
     "name": "Hopper",
     "email": "founders@withhopper.com",
@@ -23,6 +23,11 @@
     "livekit",
     "vapi",
     "openai-compatible",
-    "gemma"
+    "gemma",
+    "text to speech",
+    "speech to text",
+    "tts",
+    "stt",
+    "transcription"
   ]
 }
