@@ -116,13 +116,16 @@ async function execute(prompt, workspace, timeout, maxTurns) {
 }
 
 async function judge(criteria, content) {
-  const prompt = `You are grading an AI coding agent's work against a rubric. Reply with exactly PASS or FAIL on the first line, then one sentence of reason.\n\n<rubric>\n${criteria}\n</rubric>\n\n<work>\n${content.slice(-60000)}\n</work>`;
+  const prompt = `You are grading an AI coding agent's work against a rubric. Think it through briefly, then end with one final line: VERDICT: PASS or VERDICT: FAIL.\n\n<rubric>\n${criteria}\n</rubric>\n\n<work>\n${content.slice(-60000)}\n</work>`;
   const { stdout } = await run("claude", ["-p", prompt, "--model", judgeModel, "--tools", ""], {
     cwd: tmpdir(),
     env: process.env,
     timeout: 180_000,
   });
-  return [/^\s*PASS\b/.test(stdout), stdout.trim().split("\n").slice(1).join(" ").slice(0, 200)];
+  const verdicts = [...stdout.matchAll(/VERDICT:\s*(PASS|FAIL)/g)];
+  const pass = verdicts.at(-1)?.[1] === "PASS";
+  const reason = stdout.replace(/VERDICT:\s*(PASS|FAIL)/g, "").trim().split("\n").filter(Boolean).at(-1) ?? "";
+  return [pass, pass ? "" : reason.slice(0, 200)];
 }
 
 const within = (n, g) => n >= Number(g.min ?? 1) && n <= Number(g.max ?? Infinity);
