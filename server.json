@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.withhopper/hopper",
+  "title": "Hopper",
+  "description": "Fast LLM inference for voice agents: models, integration code, latency review, API keys.",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/hopper-inc/plugins",
+    "source": "github"
+  },
+  "websiteUrl": "https://withhopper.com",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://withhopper.com/mcp"
+    }
+  ],
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/hopper-inc/plugins/main/hopper-inference/assets/logo.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "512x512"
+      ]
+    }
+  ]
+}

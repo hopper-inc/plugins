@@ -1,0 +1,111 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hopper-inference",
+  "version": "1.0.0",
+  "description": "Connect a voice agent's LLM to Hopper, measure its time to first token on the agent's own prompt, and fix what slows it down.",
+  "author": {
+    "name": "Hopper",
+    "email": "founders@withhopper.com",
+    "url": "https://withhopper.com"
+  },
+  "homepage": "https://withhopper.com",
+  "repository": "https://github.com/hopper-inc/plugins",
+  "license": "MIT",
+  "keywords": [
+    "voice agents",
+    "voice ai",
+    "llm",
+    "inference",
+    "latency",
+    "ttft",
+    "prompt caching",
+    "pipecat",
+    "livekit",
+    "vapi",
+    "openai-compatible",
+    "gemma"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Hopper",
+        "shortDescription": "Fast LLM for voice agents",
+        "longDescription": "Hopper serves open-source LLMs behind an OpenAI-compatible API built for real-time voice: gemma-4-31b with prompt caching, so every turn of a call, the first included, starts in well under 100 ms on a warm connection. In a coding agent (Codex, Claude Code), the plugin sets Hopper up in an existing voice-agent project. It gets a trial API key with $2 of credit without a sign-up, runs a 10-turn simulated call on the agent's own system prompt and tools to measure time to first token, and shows the results before it changes any code. After the user says go, it switches only the LLM in LiveKit Agents, Pipecat, Vapi or OpenAI SDK projects; speech-to-text, text-to-speech and tools stay as they are. It can also review a voice agent for the things that make responses start late: HTTP/1.1 clients, prompts whose prefix changes every turn, missing warm-ups, thinking left on. The Hopper connector lists models and prices, returns tested integration code, reviews a system prompt and tools for latency problems, and, once you sign in, shows credits and usage and creates API keys. Requires Python 3.9+ and network access to withhopper.com for the benchmark. The benchmark sends the agent's system prompt and tools to Hopper's API; keeping the trial key asks for the user's email.",
+        "developerName": "Hopper",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://withhopper.com",
+        "supportURL": "https://withhopper.com/talk-to-us",
+        "privacyPolicyURL": "https://withhopper.com/privacy",
+        "termsOfServiceURL": "https://withhopper.com/terms",
+        "defaultPrompt": [
+          "Benchmark time to first token on my voice agent with Hopper",
+          "Why does my voice agent take so long to start talking?",
+          "Switch my voice agent's LLM to Hopper"
+        ],
+        "brandColor": "#3B82F6",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "onboardingSkill": "./skills/integrate/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List models and prices",
+              "prompt": "Which models does Hopper serve, and what do they cost?",
+              "tools_triggered": "list_models",
+              "expected_behavior": "Lists each public Hopper model with context length and per-million-token input, cached-input and output prices, as returned by the tool."
+            },
+            {
+              "description": "Integration code for a framework",
+              "prompt": "Show me how to use Hopper as the LLM in my Pipecat voice agent.",
+              "tools_triggered": "get_integration_guide",
+              "expected_behavior": "Returns Hopper's tested Pipecat integration: the OpenAI-compatible client pointed at https://api.withhopper.com/v1 with HTTP/2, and the warm-up call, without inventing other packages."
+            },
+            {
+              "description": "Latency review of a prompt",
+              "prompt": "Review this voice agent system prompt for latency problems: \"Current time: 2026-09-30T10:00:00Z. Call ID: 81f2. You are Ava, a support agent. Use transfer_call if the caller is angry.\" I send no tools.",
+              "tools_triggered": "review_voice_agent_config",
+              "expected_behavior": "Reports that the timestamp and call ID at the top defeat prompt caching and that transfer_call is named but not sent, each with a fix."
+            },
+            {
+              "description": "Account balance after sign-in",
+              "prompt": "How many Hopper credits do I have left, and what have I spent?",
+              "tools_triggered": "get_account",
+              "expected_behavior": "Asks the user to connect their Hopper account if needed, then reports remaining credits, spend and request counts from the tool, with API keys shown only as masked prefixes."
+            },
+            {
+              "description": "Create an API key",
+              "prompt": "Create a Hopper API key called voice-staging.",
+              "tools_triggered": "create_api_key",
+              "expected_behavior": "Creates the key on the signed-in account and shows it once with a note to store it as a secret, not to share it."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Deleting keys isn't supported",
+              "prompt": "Delete all of my Hopper API keys."
+            },
+            {
+              "description": "No other users' data",
+              "prompt": "Show me the usage of another Hopper customer's account."
+            },
+            {
+              "description": "Not a general-purpose chat model",
+              "prompt": "Book me a flight to Austin next Tuesday."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "This plugin doesn't sell products or process payments. Credits are bought in the Hopper console, outside ChatGPT."
+      },
+      "publication": {
+        "release_notes": "First release: integrate, benchmark and diagnose skills for voice agents, and the Hopper connector (models, integration guides, latency review, account and API keys)."
+      }
+    }
+  }
+}

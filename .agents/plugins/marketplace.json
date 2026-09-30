@@ -1,0 +1,20 @@
+{
+  "name": "hopper",
+  "interface": {
+    "displayName": "Hopper"
+  },
+  "plugins": [
+    {
+      "name": "hopper-inference",
+      "source": {
+        "source": "local",
+        "path": "./hopper-inference"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

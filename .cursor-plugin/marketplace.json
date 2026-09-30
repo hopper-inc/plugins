@@ -1,0 +1,19 @@
+{
+  "name": "hopper",
+  "owner": {
+    "name": "Hopper",
+    "email": "founders@withhopper.com",
+    "url": "https://withhopper.com"
+  },
+  "metadata": {
+    "description": "Hopper's plugins: fast open-source inference for voice agents.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "hopper-inference",
+      "source": "./hopper-inference",
+      "description": "Connect a voice agent's LLM to Hopper, measure its time to first token on the agent's own prompt, and fix what slows it down."
+    }
+  ]
+}

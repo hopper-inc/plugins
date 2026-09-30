@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: benchmark-livekit
+tags: [live, benchmark]
+context:
+  scaffold_script: scaffold.sh

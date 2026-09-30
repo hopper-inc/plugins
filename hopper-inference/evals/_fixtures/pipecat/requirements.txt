@@ -1,0 +1,2 @@
+pipecat-ai[openai,deepgram,cartesia,silero]==1.12.0
+python-dotenv

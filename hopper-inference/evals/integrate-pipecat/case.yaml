@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: integrate-pipecat
+tags: [live, integrate]
+context:
+  scaffold_script: scaffold.sh
