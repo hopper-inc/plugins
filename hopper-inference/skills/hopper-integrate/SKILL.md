@@ -105,7 +105,7 @@ Then make a test call and compare the framework's TTFT metric with step 2.
 | :--- | :--- |
 | Base URL | `https://api.withhopper.com/v1` |
 | Model | `gemma-4-31b` · 262,144-token context, output included |
-| Price per 1M tokens | $0.50 input · $0.15 cached input · $2.00 output |
+| Price per 1M tokens | $0.40 input · $0.20 cached input · $1.20 output |
 | Limits | 2,000 requests/min per key (429 with `Retry-After`) · zero balance returns 402 `insufficient_quota` |
 | Credits | $2 trial · $5 once claimed · top up in the [console](https://withhopper.com/console) |
 | Agent registration | https://withhopper.com/auth.md |
