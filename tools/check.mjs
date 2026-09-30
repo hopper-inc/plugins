@@ -12,19 +12,19 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const plugin = join(root, "hopper-inference");
+const plugin = join(root, "hopper");
 const errors = [];
 const fail = (message) => errors.push(message);
 const json = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));
 
-const portable = json("hopper-inference/plugin.json");
-const claude = json("hopper-inference/.claude-plugin/plugin.json");
+const portable = json("hopper/plugin.json");
+const claude = json("hopper/.claude-plugin/plugin.json");
 const openai = portable.extensions?.["com.openai"] ?? {};
 const ui = openai.interface ?? {};
 
 // Identity: the name is permanent on both directories.
 for (const [label, manifest] of [["plugin.json", portable], [".claude-plugin/plugin.json", claude]]) {
-  if (manifest.name !== "hopper-inference") fail(`${label}: name must stay "hopper-inference"`);
+  if (manifest.name !== "hopper") fail(`${label}: name must stay "hopper"`);
   if (!/^\d+\.\d+\.\d+$/.test(manifest.version ?? "")) fail(`${label}: version must be x.y.z`);
   for (const key of ["description", "author", "license", "homepage", "repository"])
     if (!manifest[key]) fail(`${label}: missing ${key}`);
@@ -60,9 +60,9 @@ if (!existsSync(join(plugin, openai.onboardingSkill ?? "-"))) fail("onboardingSk
 // MCP: optional (the connector ships once withhopper.com/mcp is live). When present: one
 // remote server, the same URL in both formats.
 const hasMcp = existsSync(join(plugin, ".mcp.json"));
-const mcpClaude = hasMcp ? json("hopper-inference/.mcp.json").mcpServers : {};
+const mcpClaude = hasMcp ? json("hopper/.mcp.json").mcpServers : {};
 if (hasMcp) {
-  const mcpPortable = json("hopper-inference/mcp.json").mcpServers;
+  const mcpPortable = json("hopper/mcp.json").mcpServers;
   for (const [name, server] of Object.entries(mcpClaude)) {
     if (server.type !== "http" || !server.url?.startsWith("https://")) fail(`.mcp.json ${name}: type http, https url`);
     if (mcpPortable[name]?.type !== "streamable-http" || mcpPortable[name]?.url !== server.url)
@@ -76,12 +76,12 @@ const ccMarket = json(".claude-plugin/marketplace.json");
 const oaMarket = json(".agents/plugins/marketplace.json");
 const ccEntry = ccMarket.plugins.find((p) => p.name === claude.name);
 const oaEntry = oaMarket.plugins.find((p) => p.name === portable.name);
-if (ccEntry?.source !== "./hopper-inference") fail("Claude marketplace entry must point at ./hopper-inference");
-if (oaEntry?.source?.path !== "./hopper-inference") fail("Codex marketplace entry must point at ./hopper-inference");
+if (ccEntry?.source !== "./hopper") fail("Claude marketplace entry must point at ./hopper");
+if (oaEntry?.source?.path !== "./hopper") fail("Codex marketplace entry must point at ./hopper");
 for (const key of ["installation", "authentication"]) if (!oaEntry?.policy?.[key]) fail(`Codex marketplace: policy.${key}`);
 if (!oaEntry?.category) fail("Codex marketplace: category");
 const cursorEntry = json(".cursor-plugin/marketplace.json").plugins.find((p) => p.name === portable.name);
-if (cursorEntry?.source !== "./hopper-inference") fail("Cursor marketplace entry must point at ./hopper-inference");
+if (cursorEntry?.source !== "./hopper") fail("Cursor marketplace entry must point at ./hopper");
 
 // MCP Registry listing: same server, same version.
 const server = json("server.json");

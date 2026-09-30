@@ -17,7 +17,7 @@
   ],
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/hopper-inc/plugins/main/hopper-inference/assets/logo.png",
+      "src": "https://raw.githubusercontent.com/hopper-inc/plugins/main/hopper/assets/logo.png",
       "mimeType": "image/png",
       "sizes": [
         "512x512"

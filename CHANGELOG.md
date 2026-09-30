@@ -2,9 +2,9 @@
 
 Versions follow the `version` in each plugin's manifest; `tools/check.mjs` keeps the manifests and `server.json` in step.
 
-## hopper-inference 1.0.0 · hopper-announce 1.0.0 — unreleased
+## hopper 1.0.0 · hopper-announce 1.0.0 — unreleased
 
-### hopper-inference
+### hopper
 - Skills: `hopper-integrate`, `hopper-benchmark`, `hopper-diagnose`, `hopper-speak`, `hopper-transcribe`.
 - The Hopper MCP connector is held for the next version, until `https://withhopper.com/mcp` is live.
 - Manifests for Claude Code, Codex and ChatGPT (portable `plugin.json` and `.codex-plugin/`), Cursor, and the MCP Registry.

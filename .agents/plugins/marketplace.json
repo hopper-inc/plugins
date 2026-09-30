@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "hopper-inference",
+      "name": "hopper",
       "source": {
         "source": "local",
-        "path": "./hopper-inference"
+        "path": "./hopper"
       },
       "policy": {
         "installation": "AVAILABLE",

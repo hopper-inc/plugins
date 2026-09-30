@@ -9,7 +9,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const plugin = resolve(dirname(fileURLToPath(import.meta.url)), "..", "hopper-inference");
+const plugin = resolve(dirname(fileURLToPath(import.meta.url)), "..", "hopper");
 // Each skill carries its own copy, so it still works when a host installs one skill
 // folder on its own (npx skills, claude.ai skill uploads).
 const files = [
@@ -46,7 +46,7 @@ for (const [name, folder] of files) {
     } catch {}
     if (have !== want) {
       drifted++;
-      console.error(`out of date: hopper-inference/${folder}/${name}`);
+      console.error(`out of date: hopper/${folder}/${name}`);
     }
   } else {
     writeFileSync(path, want);
@@ -66,7 +66,7 @@ for (const [source, ...copies] of local) {
       } catch {}
       if (have !== want) {
         drifted++;
-        console.error(`out of date: hopper-inference/${copy} (source: ${source})`);
+        console.error(`out of date: hopper/${copy} (source: ${source})`);
       }
     } else {
       mkdirSync(dirname(path), { recursive: true });
@@ -101,7 +101,7 @@ for (const [source, ...copies] of local) {
     } catch {}
     if (have !== want) {
       drifted++;
-      console.error("out of date: hopper-inference/.codex-plugin/plugin.json (generated from plugin.json)");
+      console.error("out of date: hopper/.codex-plugin/plugin.json (generated from plugin.json)");
     }
   } else {
     mkdirSync(dirname(path), { recursive: true });

@@ -18,6 +18,6 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/settings.py max_words=15      # shorter anno
 
 Changes apply from the next task. Confirm the new setting in one line.
 
-To hear voices before choosing, the hopper-speak skill (hopper-inference plugin) previews them; `python3 ${CLAUDE_SKILL_DIR}/../../scripts/hopper_voice.py voices` lists the ids.
+To hear voices before choosing, the hopper-speak skill (hopper plugin) previews them; `python3 ${CLAUDE_SKILL_DIR}/../../scripts/hopper_voice.py voices` lists the ids.
 
 The first announcement registers a Hopper trial key for the agent ($2 credit, no sign-up) in `~/.config/hopper/`; an announcement costs about $0.0001. To keep the key past the trial: `python3 ${CLAUDE_SKILL_DIR}/../../scripts/hopper_voice.py claim <email>`.

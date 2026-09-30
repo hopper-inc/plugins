@@ -12,7 +12,7 @@ The fastest LLM for voice agents, and a voice and ears for any agent. Hopper ser
 | `hopper-speak` | "Read this aloud", "make an audio file of…" | Turns text into speech: plays it or saves a WAV, in any of 50 voices. |
 | `hopper-transcribe` | "What does this recording say?" | Transcribes audio or video files (WAV, MP3, M4A, voice memos, MP4) with word timestamps. |
 
-In Claude Code they are also commands, such as `/hopper-inference:hopper-integrate`.
+In Claude Code they are also commands, such as `/hopper:hopper-integrate`.
 
 ## Connector
 
@@ -21,8 +21,8 @@ A Hopper MCP connector for hosts without a shell (ChatGPT, Claude chat) is comin
 ## Install
 
 ```bash
-claude plugin marketplace add hopper-inc/plugins && claude plugin install hopper-inference@hopper   # Claude Code
-codex plugin marketplace add hopper-inc/plugins && codex plugin add hopper-inference@hopper          # Codex
+claude plugin marketplace add hopper-inc/plugins && claude plugin install hopper@hopper   # Claude Code
+codex plugin marketplace add hopper-inc/plugins && codex plugin add hopper@hopper          # Codex
 ```
 
 Pick one way to install: the plugin, or `npx skills add hopper-inc/plugins` for the skills alone. With both, every skill loads twice.

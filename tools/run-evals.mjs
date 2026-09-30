@@ -15,7 +15,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const plugin = join(root, "hopper-inference");
+const plugin = join(root, "hopper");
 const evals = join(plugin, "evals");
 const arg = (name, fallback) => {
   const i = process.argv.indexOf(`--${name}`);
@@ -71,7 +71,7 @@ function codexHome() {
   codexEnv = { ...process.env, CODEX_HOME: home };
   if (!baseline) {
     execFileSync("codex", ["plugin", "marketplace", "add", root], { env: codexEnv, stdio: "ignore" });
-    execFileSync("codex", ["plugin", "add", "hopper-inference@hopper"], { env: codexEnv, stdio: "ignore" });
+    execFileSync("codex", ["plugin", "add", "hopper@hopper"], { env: codexEnv, stdio: "ignore" });
   }
   return codexEnv;
 }

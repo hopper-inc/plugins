@@ -11,8 +11,8 @@
   },
   "plugins": [
     {
-      "name": "hopper-inference",
-      "source": "./hopper-inference",
+      "name": "hopper",
+      "source": "./hopper",
       "description": "Fastest LLM for voice agents: sub-100 ms time to first token, plus text-to-speech and speech-to-text any agent can use with no sign-up."
     }
   ]
