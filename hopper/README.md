@@ -21,7 +21,7 @@ A Hopper MCP connector for hosts without a shell (ChatGPT, Claude chat) is comin
 ## Install
 
 ```bash
-claude plugin marketplace add hopper-inc/plugins && claude plugin install hopper@hopper   # Claude Code
+claude plugin marketplace add https://withhopper.com/marketplace.json && claude plugin install hopper@hopper   # Claude Code
 codex plugin marketplace add hopper-inc/plugins && codex plugin add hopper@hopper          # Codex
 ```
 

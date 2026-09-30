@@ -3,7 +3,7 @@
 Claude Code tells you out loud when a long task finishes. When a turn takes 20 seconds or more, it says the first sentence of its final reply in a Hopper voice, so you can look away while it works.
 
 ```bash
-claude plugin marketplace add hopper-inc/plugins
+claude plugin marketplace add https://withhopper.com/marketplace.json
 claude plugin install hopper-announce@hopper
 ```
 

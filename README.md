@@ -11,7 +11,7 @@ Plugins for [Hopper](https://withhopper.com): fast open-source LLM inference for
 
 | Host | Command |
 | :--- | :--- |
-| Claude Code | `claude plugin marketplace add hopper-inc/plugins` then `claude plugin install hopper@hopper` (and `hopper-announce@hopper`) |
+| Claude Code | `claude plugin marketplace add https://withhopper.com/marketplace.json` then `claude plugin install hopper@hopper` (and `hopper-announce@hopper`) |
 | Codex | `codex plugin marketplace add hopper-inc/plugins` then `codex plugin add hopper@hopper` |
 | Cursor, VS Code / Copilot | Add the marketplace `hopper-inc/plugins` |
 | Any agent that reads Agent Skills | `npx skills add hopper-inc/plugins` |
@@ -28,6 +28,7 @@ Set up Hopper in this project using https://withhopper.com/skill.md
 .claude-plugin/marketplace.json      Claude Code marketplace
 .agents/plugins/marketplace.json     Codex marketplace
 .cursor-plugin/marketplace.json      Cursor marketplace
+hosted/marketplace.json              the Claude marketplace as a URL (served at withhopper.com/marketplace.json), generated
 server.json                          MCP Registry listing (com.withhopper/hopper), for when the connector ships
 hopper/
   .claude-plugin/plugin.json         Claude Code manifest
