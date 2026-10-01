@@ -1,0 +1,5 @@
+interface:
+  display_name: "Hopper speak"
+  short_description: "Speak text aloud or save it as a WAV file"
+  brand_color: "#3B82F6"
+  default_prompt: "Use $hopper-speak to read this aloud."

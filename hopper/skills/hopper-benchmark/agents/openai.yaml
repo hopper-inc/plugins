@@ -1,0 +1,5 @@
+interface:
+  display_name: "Hopper TTFT benchmark"
+  short_description: "Measure a voice agent's time to first token"
+  brand_color: "#3B82F6"
+  default_prompt: "Use $hopper-benchmark to measure my agent's time to first token on Hopper."

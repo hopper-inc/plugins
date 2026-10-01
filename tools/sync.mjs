@@ -80,6 +80,10 @@ for (const [source, ...copies] of local) {
 {
   const portable = JSON.parse(readFileSync(join(plugin, "plugin.json"), "utf8"));
   const { review, publication, onboardingSkill, ...openai } = portable.extensions["com.openai"];
+  // The workspace-ingestion validator (plugin-creator's validate_plugin.py) rejects
+  // interface.supportURL in this overlay; public submission reads it from plugin.json.
+  const { supportURL, ...overlayInterface } = openai.interface ?? {};
+  openai.interface = overlayInterface;
   const codex = {
     name: portable.name,
     version: portable.version,

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Voice latency review"
+  short_description: "Find what delays a voice agent's first reply"
+  brand_color: "#3B82F6"
+  default_prompt: "Use $hopper-diagnose to find why my voice agent pauses before answering."

@@ -6,7 +6,9 @@ allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_voice.py *)
 
 # Speak with Hopper
 
-`${CLAUDE_SKILL_DIR}` is the folder holding this file (if your host doesn't fill it in, use that folder's absolute path). The script needs network access to `withhopper.com` and `api.withhopper.com`, and writes its key to `~/.config/hopper/`; if the sandbox blocks either, ask for approval. Explicit instructions from the user override these steps.
+Use this skill's script, not the Hopper connector's tools, whenever you can run commands: it plays the audio on this machine (or writes the WAV where the user wants it) and uses this agent's own Hopper key, so its usage can move to the user's account later. The connector's `speak` and `transcribe` tools are for apps without a shell.
+
+`${CLAUDE_SKILL_DIR}` is the folder holding this file (if your host doesn't fill it in, use that folder's absolute path). The script needs network access to `withhopper.com` and `api.withhopper.com`, and writes the agent's key to `~/.config/hopper/`. In a sandbox (Codex), request escalated permissions for the first command, with the reason "Use Hopper speech: create this agent's own Hopper key and synthesize the audio (network to withhopper.com; writes ~/.config/hopper)", and suggest allowing commands that start with `python3` and this script's path so later calls don't ask again. Exit code 3 (`HOPPER_SANDBOX_BLOCKED`) means the sandbox blocked it: rerun the same command with escalation. If the user declines, say Hopper couldn't run and ask how to continue; don't switch to another tool silently. Explicit instructions from the user override these steps.
 
 ## Say it
 
@@ -23,9 +25,17 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_voice.py speak --file notes.md --out 
 
 ## Key
 
-The first run with no `HOPPER_API_KEY` (environment or the project's `.env`) registers a trial key ($2 credit, no sign-up, [agent registration](https://withhopper.com/auth.md)) and saves it to `~/.config/hopper/credentials.json`, mode 600. Never print it or copy it into the project. `status` says where the key comes from without showing it.
+The first run with no `HOPPER_API_KEY` (environment or the project's `.env`) registers a key for the agent itself with a small trial credit (no sign-up, [agent registration](https://withhopper.com/auth.md)) and saves it to `~/.config/hopper/credentials.json`, mode 600. Never print it or copy it into the project. `status` says where the key comes from without showing it.
 
-To keep using it past the trial, ask for the user's email and run `claim <email>` in the background: it prints a link and a 6-digit code for the user, then waits (`--no-wait` prints and exits; run it again to resume). A 402 means the credit ran out: offer the claim, or the [console](https://withhopper.com/console) to top up.
+To move it to the user's account, see the next section.
+
+## When the trial credit runs low
+
+The agent's own key starts with a small trial credit. When it runs low the script prints `HOPPER_HANDOVER low_credit` (exit 0), and when it runs out, `HOPPER_HANDOVER out_of_credit` (exit 4). Either way:
+
+1. Tell the user once, in a line or two, what Hopper has done for this task (the `used=` text) and that the agent's Hopper key is running low, and offer to keep it on their own Hopper account. Don't mention it again in the same task if they decline.
+2. If they agree, confirm their email (`git config user.email` is a good guess) and run `claim <email> --no-wait`. Show the link and the 6-digit code; the user enters the code on withhopper.com, never in this chat.
+3. Run `claim <email>` to wait. When it prints `Claimed`, carry on: the script uses the account key from then on, with the same history.
 
 ## In a voice agent's code
 

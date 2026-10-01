@@ -1,0 +1,5 @@
+interface:
+  display_name: "Hopper transcribe"
+  short_description: "Transcribe audio or video with word timestamps"
+  brand_color: "#3B82F6"
+  default_prompt: "Use $hopper-transcribe to transcribe this recording."

@@ -6,7 +6,7 @@ allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_trial.py) Bash(py
 
 # Benchmark a voice agent on Hopper
 
-Paths below start at `${CLAUDE_SKILL_DIR}`, the folder holding this file (if your host doesn't fill it in, use that folder's absolute path). Run from the project root. The scripts need network access to `withhopper.com` and `api.withhopper.com`; if the sandbox blocks it, ask for approval. This measures only; don't change project code. Explicit instructions from the user override these steps.
+Paths below start at `${CLAUDE_SKILL_DIR}`, the folder holding this file (if your host doesn't fill it in, use that folder's absolute path). Run from the project root. The scripts need network access to `withhopper.com` and `api.withhopper.com`; in a sandbox (Codex), request escalated permissions for the first script, with the reason "Benchmark on hopper: get this project a Hopper key and measure time to first token (network to withhopper.com and api.withhopper.com; writes .env)", and suggest allowing commands that start with `python3` and the script's path. If the user declines, say Hopper couldn't run and ask how to continue. This measures only; don't change project code. Explicit instructions from the user override these steps.
 
 ## 1. Key
 

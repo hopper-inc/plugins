@@ -10,7 +10,7 @@ Hopper serves `gemma-4-31b` behind an OpenAI-compatible API at `https://api.with
 
 Run this end to end. The user's only steps are reading the results, opening one link to keep the key, and saying go before you change their code. Never ask them to sign up, copy keys, or install anything Hopper-specific. Explicit instructions from the user override this workflow.
 
-Paths below start at `${CLAUDE_SKILL_DIR}`, the folder holding this file (if your host doesn't fill it in, use that folder's absolute path). Run the scripts from the project root: they read and write `.env` in the current directory. They need network access to `withhopper.com` and `api.withhopper.com`; if the sandbox blocks it, ask for approval to run with network access.
+Paths below start at `${CLAUDE_SKILL_DIR}`, the folder holding this file (if your host doesn't fill it in, use that folder's absolute path). Run the scripts from the project root: they read and write `.env` in the current directory. They need network access to `withhopper.com` and `api.withhopper.com`; in a sandbox (Codex), request escalated permissions for the first script, with the reason "Set up hopper: get this project a Hopper key and measure time to first token (network to withhopper.com and api.withhopper.com; writes .env)", and suggest allowing commands that start with `python3` and the script's path. If the user declines, say Hopper couldn't run and ask how to continue.
 
 ## 1. Trial key
 

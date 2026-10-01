@@ -1,0 +1,5 @@
+interface:
+  display_name: "Switch to Hopper"
+  short_description: "Benchmark and move a voice agent's LLM to Hopper"
+  brand_color: "#3B82F6"
+  default_prompt: "Use $hopper-integrate to benchmark my voice agent on Hopper before changing any code."
