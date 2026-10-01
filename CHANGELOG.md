@@ -2,6 +2,10 @@
 
 Versions follow the `version` in each plugin's manifest; `tools/check.mjs` keeps the manifests and `server.json` in step.
 
+## hopper 1.1.0
+
+- Connector: the Hopper MCP server at `https://withhopper.com/mcp` (speak, transcribe, list_voices, list_models, get_integration_guide, review_voice_agent_config without sign-in; get_account and create_api_key with Hopper sign-in).
+
 ## hopper 1.0.0 · hopper-announce 1.0.0 — unreleased
 
 ### hopper

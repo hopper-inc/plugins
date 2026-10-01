@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hopper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Fastest LLM for voice agents: sub-100 ms time to first token, plus text-to-speech and speech-to-text any agent can use with no sign-up.",
   "author": {
     "name": "Hopper",
