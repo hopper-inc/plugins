@@ -27,7 +27,7 @@ The plugin connects the Hopper MCP server at `https://withhopper.com/mcp`, for h
 | `get_integration_guide` | No | The tested integration code for LiveKit Agents, Pipecat, Vapi or the OpenAI SDK |
 | `review_voice_agent_config` | No | Checks a system prompt, tools and client code for latency problems |
 | `get_account` | Yes | Credits, spend and API keys (masked) |
-| `create_api_key` | Yes | Creates an API key on your account and shows it once |
+| `create_api_key` | Yes | Creates an API key on your account and returns a one-time link to copy it in the console; the key never appears in the chat |
 
 Without sign-in, speech and transcription have a daily limit per caller; signed in with your Hopper account (OAuth), they use your own credits.
 
