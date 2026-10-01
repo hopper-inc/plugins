@@ -1,12 +1,12 @@
 # Hopper
 
-The fastest LLM for voice agents, and a voice and ears for any agent. Hopper serves `gemma-4-31b` behind an OpenAI-compatible API with time to first token under 100 ms on a warm connection, plus text-to-speech and speech-to-text. An agent can start using it on its own: the first run registers a trial key ($2 credit) with no sign-up. Works in Claude Code, Codex, ChatGPT, Claude and Cursor, and anywhere Agent Skills run.
+LLM inference for voice agents, and a voice and ears for any agent. Hopper serves `gemma-4-31b` behind an OpenAI-compatible API built for low time to first token, plus text-to-speech and speech-to-text. An agent can start using it on its own: the first run registers a key for it with no human step, and the user can later move that key to their Hopper account. Works in Claude Code, Codex, ChatGPT, Claude and Cursor, and anywhere Agent Skills run.
 
 ## Skills
 
 | Skill | Say something like | What it does |
 | :--- | :--- | :--- |
-| `hopper-integrate` | "Make my voice agent respond faster" | Gets a trial key, benchmarks a 10-turn simulated call on the agent's own prompt and tools, shows the results, and after you say go switches only the LLM in LiveKit Agents, Pipecat, Vapi or OpenAI SDK code. STT, TTS and tools stay as they are. |
+| `hopper-integrate` | "Make my voice agent respond faster" | Gets a key, benchmarks a 10-turn simulated call on the agent's own prompt and tools, shows the results, and after you say go switches only the LLM in LiveKit Agents, Pipecat, Vapi or OpenAI SDK code. STT, TTS and tools stay as they are. |
 | `hopper-benchmark` | "How fast would my agent be on Hopper?" | Measures time to first token and prompt caching on the current prompt. Changes no code. |
 | `hopper-diagnose` | "Why does my agent pause before answering?" | Reads the project and ranks what slows the first token, with fixes. Any provider; needs no key or network. |
 | `hopper-speak` | "Read this aloud", "make an audio file of…" | Turns text into speech: plays it or saves a WAV, in any of 50 voices. |
@@ -29,7 +29,7 @@ The plugin connects the Hopper MCP server at `https://withhopper.com/mcp`, for h
 | `get_account` | Yes | Credits, spend and API keys (masked) |
 | `create_api_key` | Yes | Creates an API key on your account and shows it once |
 
-Without sign-in, speech and transcription run on a small free daily allowance; signing in with your Hopper account (OAuth) bills your own credits.
+Without sign-in, speech and transcription have a daily limit per caller; signed in with your Hopper account (OAuth), they use your own credits.
 
 ## Install
 

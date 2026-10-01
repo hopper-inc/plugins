@@ -6,7 +6,7 @@
     "url": "https://withhopper.com"
   },
   "metadata": {
-    "description": "Hopper: fastest LLM for voice agents, plus text-to-speech and speech-to-text for any agent."
+    "description": "Hopper's plugins: LLM, text-to-speech and speech-to-text for voice agents and AI agents."
   },
   "plugins": [
     {
@@ -17,7 +17,7 @@
         "path": "hopper",
         "ref": "main"
       },
-      "description": "Fastest LLM for voice agents: sub-100 ms time to first token, plus text-to-speech and speech-to-text any agent can use with no sign-up.",
+      "description": "LLM, text-to-speech and speech-to-text for voice agents and AI agents: set Hopper up in a voice-agent project, measure time to first token on its own prompt, find what slows it down, and speak or transcribe audio.",
       "category": "development",
       "homepage": "https://withhopper.com"
     },

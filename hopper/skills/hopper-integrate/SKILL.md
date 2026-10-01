@@ -1,6 +1,6 @@
 ---
 name: hopper-integrate
-description: 'Switch an existing voice agent''s LLM to Hopper, an OpenAI-compatible endpoint that starts responding in well under 100 ms on a warm connection. Gets a trial key with no sign-up, benchmarks the agent''s own prompt and tools, and edits code only after the user says go. Use when the user says "make my agent respond faster", "set up Hopper", "try Hopper" or "swap the LLM" in a Pipecat, LiveKit Agents, Vapi or OpenAI-SDK voice agent. For numbers only, use hopper-benchmark; to find what''s slow, use hopper-diagnose.'
+description: 'Switch an existing voice agent''s LLM to Hopper, an OpenAI-compatible endpoint built for low time to first token. Gets a key for the project with no human step, benchmarks the agent''s own prompt and tools, and edits code only after the user says go. Use when the user says "make my agent respond faster", "set up Hopper", "try Hopper" or "swap the LLM" in a Pipecat, LiveKit Agents, Vapi or OpenAI-SDK voice agent. For numbers only, use hopper-benchmark; to find what''s slow, use hopper-diagnose.'
 allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_trial.py) Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_claim.py *) Bash(python ${CLAUDE_SKILL_DIR}/scripts/hopper_ttft.py *) Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_ttft.py *)
 ---
 

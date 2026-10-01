@@ -4,7 +4,7 @@ Plugins for [Hopper](https://withhopper.com): fast open-source LLM inference for
 
 | Plugin | What it does |
 | :--- | :--- |
-| [`hopper`](hopper/) | The fastest LLM for voice agents, and a voice and ears for any agent: set Hopper up in a voice-agent project, benchmark and diagnose time to first token, speak text and transcribe recordings. Skills that call Hopper's API directly. |
+| [`hopper`](hopper/) | LLM inference for voice agents, and a voice and ears for any agent: set Hopper up in a voice-agent project, benchmark and diagnose time to first token, speak text and transcribe recordings. Skills that call Hopper's API directly. |
 | [`hopper-announce`](hopper-announce/) | Claude Code says out loud when a long task finishes. Claude Code only (hooks). |
 
 ## Install

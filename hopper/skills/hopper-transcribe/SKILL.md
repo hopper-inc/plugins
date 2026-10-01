@@ -1,6 +1,6 @@
 ---
 name: hopper-transcribe
-description: 'Transcribe speech in an audio or video file with Hopper speech-to-text, with word timestamps. Takes WAV, MP3, M4A, voice memos and video (decoded with ffmpeg). Works right away with no account; the first use registers a trial key for the agent itself. Use when the user says "transcribe this", "what does this recording say", "speech to text", "STT", "summarize this call" or "caption this". Not for generating audio (hopper-speak) or measuring LLM latency (hopper-benchmark).'
+description: 'Transcribe speech in an audio or video file with Hopper speech-to-text, with word timestamps. Takes WAV, MP3, M4A, voice memos and video (decoded with ffmpeg). Needs no setup: the first use registers a key for the agent itself. Use when the user says "transcribe this", "what does this recording say", "speech to text", "STT", "summarize this call" or "caption this". Not for generating audio (hopper-speak) or measuring LLM latency (hopper-benchmark).'
 allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_voice.py *)
 ---
 

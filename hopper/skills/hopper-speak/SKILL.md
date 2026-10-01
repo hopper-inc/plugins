@@ -1,6 +1,6 @@
 ---
 name: hopper-speak
-description: 'Turn text into speech with Hopper text-to-speech: play it aloud, save a WAV file, or preview and pick a voice. Works right away with no account; the first use registers a trial key for the agent itself. Use when the user says "read this aloud", "say this out loud", "generate a voiceover", "make an audio file of…", "TTS" or "which voice should I use". Not for writing a speech (plain text), transcribing audio (hopper-transcribe) or a voice agent''s LLM (hopper-integrate).'
+description: 'Turn text into speech with Hopper text-to-speech: play it aloud, save a WAV file, or preview and pick a voice. Needs no setup: the first use registers a key for the agent itself. Use when the user says "read this aloud", "say this out loud", "generate a voiceover", "make an audio file of…", "TTS" or "which voice should I use". Not for writing a speech (plain text), transcribing audio (hopper-transcribe) or a voice agent''s LLM (hopper-integrate).'
 allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_voice.py *)
 ---
 
