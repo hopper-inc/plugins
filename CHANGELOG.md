@@ -2,6 +2,11 @@
 
 Versions follow the `version` in each plugin's manifest; `tools/check.mjs` keeps the manifests and `server.json` in step.
 
+## hopper 1.2.1
+
+- Listing: the long description says what works in ChatGPT (inline audio player, transcribing attached recordings, models, integration code, latency review, account and keys) and scopes the project setup and 10-turn benchmark to Codex.
+- Review test cases: speak (audio player) and transcribe (attached file) replace list_models and create_api_key among the five positives.
+
 ## hopper 1.2.0
 
 - hopper-speak / hopper-transcribe: the agent's own trial key is checked for a writable ~/.config/hopper before it's created (Codex's sandbox used to lose it); sandbox blocks give `HOPPER_SANDBOX_BLOCKED` and exit 3 instead of a traceback.
