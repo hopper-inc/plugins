@@ -2,6 +2,10 @@
 
 Versions follow the `version` in each plugin's manifest; `tools/check.mjs` keeps the manifests and `server.json` in step.
 
+## hopper 1.2.3
+
+- Review: demo recording URL for the OpenAI submission.
+
 ## hopper 1.2.2
 
 - Listing: the long description names no other AI products or platforms (OpenAI's automated check).

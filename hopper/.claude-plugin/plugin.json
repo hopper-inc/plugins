@@ -1,7 +1,7 @@
 {
   "name": "hopper",
   "displayName": "Hopper",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "LLM, text-to-speech and speech-to-text for voice agents and AI agents: set Hopper up in a voice-agent project, measure time to first token on its own prompt, find what slows it down, and speak or transcribe audio.",
   "author": {
     "name": "Hopper",
