@@ -1,6 +1,6 @@
 {
   "name": "hopper",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "LLM, text-to-speech and speech-to-text for voice agents and AI agents: set Hopper up in a voice-agent project, measure time to first token on its own prompt, find what slows it down, and speak or transcribe audio.",
   "author": {
     "name": "Hopper",
@@ -34,7 +34,7 @@
   "interface": {
     "displayName": "Hopper",
     "shortDescription": "Voice AI inference for agents",
-    "longDescription": "Hopper serves open-source models for real-time voice behind an OpenAI-compatible API: gemma-4-31b for the LLM, plus text-to-speech and speech-to-text. In ChatGPT, Hopper speaks text with an inline audio player, transcribes recordings you attach (WAV, MP3, M4A, Ogg, FLAC or WebM) with word timestamps, lists models and prices, returns tested integration code for Pipecat, LiveKit Agents, Vapi and the OpenAI SDK, and reviews a voice agent's prompt, tools and client code for what delays its first reply. After you sign in with your Hopper account, it shows your usage and creates API keys. In Codex, the plugin's skills also set Hopper up in a voice-agent project: they measure time to first token on the agent's own system prompt and tools in a 10-turn simulated call and show the results before changing any code, and after you say go they switch only the LLM. Text and audio you send go to Hopper's API; see withhopper.com/privacy.",
+    "longDescription": "Hopper serves open-source models for real-time voice agents: a low-latency LLM behind a standard chat-completions API, plus text-to-speech and speech-to-text. Hopper speaks text with an inline audio player, transcribes recordings you attach (WAV, MP3, M4A, Ogg, FLAC or WebM) with word timestamps, lists models and prices, returns tested integration code for popular voice-agent frameworks, and reviews a voice agent's prompt, tools and client code for what delays its first reply. After you sign in with your Hopper account, it shows your usage and creates API keys. Where it can run commands in your project, the plugin also sets Hopper up in a voice-agent codebase: it measures time to first token on the agent's own system prompt and tools in a 10-turn simulated call and shows the results before changing any code, and after you say go it switches only the LLM. Text and audio you send go to Hopper's API; see withhopper.com/privacy.",
     "developerName": "Hopper",
     "category": "Developer Tools",
     "capabilities": [
