@@ -1,4 +1,5 @@
 ---
 type: regex
-pattern: '(?i)(api key|switch|go ahead|hopper-integrate)[^\n]*\?'
+flags: i
+pattern: '(api key|switch|go ahead|hopper-integrate)[^\n]*\?'
 ---
