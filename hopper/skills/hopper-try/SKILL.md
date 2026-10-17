@@ -51,7 +51,7 @@ Then one line overall: which model fits this use case, and anything that failed 
 
 ## 4. Offer the next step (don't do it)
 
-End with one question offering the next step, and wait for the answer:
+End with one question that offers to put the model in their code, and wait for the answer. In a project, offer the switch (and the key it needs); in a chat, offer the key and snippet. You may add "or test more examples first" to the same question, but never offer only more testing:
 
 - **Use it in code:** an API key and the snippet. With the connector, call `create_api_key` (name it after the project; pass the chosen `model`): it returns a one-time link to copy the key and a ready snippet. Never paste a full key into the chat.
 - **Switch this project:** the `hopper-integrate` skill in this plugin points the project's OpenAI-compatible client at Hopper after the user says go.
