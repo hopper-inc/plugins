@@ -138,5 +138,37 @@
   {
     "prompt": "Fix any typos in prompt.txt.",
     "skill": null
+  },
+  {
+    "prompt": "Make the audio for my launch video from launch-script.txt.",
+    "skill": "hopper-speak"
+  },
+  {
+    "prompt": "I need a voiceover for our product launch video, here's the script: \"Meet Hopper. Open models, one call away.\"",
+    "skill": "hopper-speak"
+  },
+  {
+    "prompt": "Narrate this demo script so I can drop it into my screen recording.",
+    "skill": "hopper-speak"
+  },
+  {
+    "prompt": "Check my video demo.mp4 and tell me if I say anything wrong.",
+    "skill": "hopper-transcribe"
+  },
+  {
+    "prompt": "Make subtitles for launch.mov.",
+    "skill": "hopper-transcribe"
+  },
+  {
+    "prompt": "Pull the best quotes from interview.m4a.",
+    "skill": "hopper-transcribe"
+  },
+  {
+    "prompt": "Generate the visuals for my launch video.",
+    "skill": null
+  },
+  {
+    "prompt": "Add background music to my launch video.",
+    "skill": null
   }
 ]

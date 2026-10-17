@@ -1,6 +1,6 @@
 ---
 name: hopper-speak
-description: 'Turn text into speech with Hopper text-to-speech (Qwen 3 TTS): play it aloud, save a WAV file, or preview and pick a voice. Needs no setup: the first use registers a key for the agent itself. Use when the user says "read this aloud", "say this out loud", "generate a voiceover", "make an audio file of…", "TTS" or "which voice should I use". Not for writing a speech (plain text), transcribing audio (hopper-transcribe) or running an LLM (hopper-try).'
+description: 'Turn text into speech with Hopper text-to-speech (Qwen 3 TTS): play it aloud, save a WAV file, or preview and pick a voice. Needs no setup: the first use registers a key for the agent itself. Use when the user says "read this aloud", "say this out loud", "generate a voiceover", "voiceover for my launch video", "audio for my launch video", "narrate this script", "narration for my demo video", "make a podcast intro", "record an announcement", "voice for my ad", "make an audio file of…", "text to speech", "TTS" or "which voice should I use". Makes the speech track only, not video, music or sound effects. Not for writing a script (plain text), transcribing audio (hopper-transcribe) or running an LLM (hopper-try).'
 allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_voice.py *)
 ---
 

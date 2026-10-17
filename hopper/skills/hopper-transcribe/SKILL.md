@@ -1,6 +1,6 @@
 ---
 name: hopper-transcribe
-description: 'Transcribe speech in an audio or video file with Hopper speech-to-text (Nemotron ASR), with word timestamps. Takes WAV, MP3, M4A, voice memos and video (decoded with ffmpeg). Needs no setup: the first use registers a key for the agent itself. Use when the user says "transcribe this", "what does this recording say", "speech to text", "STT", "summarize this call" or "caption this". Not for generating audio (hopper-speak) or running an LLM (hopper-try).'
+description: 'Transcribe speech in an audio or video file with Hopper speech-to-text (Nemotron ASR), with word timestamps. Takes WAV, MP3, M4A, voice memos and video such as MP4 or MOV (decoded with ffmpeg). Needs no setup: the first use registers a key for the agent itself. Use when the user says "transcribe this", "what does this recording say", "check my video", "what''s said in this video", "review the voiceover in my launch video", "captions for my video", "subtitles", "caption this", "meeting notes from this recording", "summarize this call", "pull quotes from this interview", "speech to text" or "STT". Works from the spoken words only, not the visuals. Not for generating audio (hopper-speak) or running an LLM (hopper-try).'
 allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_voice.py *)
 ---
 
