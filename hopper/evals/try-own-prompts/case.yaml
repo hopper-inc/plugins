@@ -1,5 +1,5 @@
 schema_version: "1.1"
-name: diagnose-tuned
-tags: [offline, diagnose]
+name: try-own-prompts
+tags: [live, try]
 context:
   scaffold_script: scaffold.sh

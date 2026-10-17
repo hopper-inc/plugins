@@ -17,12 +17,7 @@ const files = [
   ["hopper_trial.py", "skills/hopper-integrate/scripts"],
   ["hopper_claim.py", "skills/hopper-integrate/scripts"],
   ["hopper_ttft.py", "skills/hopper-integrate/scripts"],
-  ["hopper_trial.py", "skills/hopper-benchmark/scripts"],
-  ["hopper_ttft.py", "skills/hopper-benchmark/scripts"],
-  ...["livekit.md", "pipecat.md", "vapi.md", "openai-sdk.md"].flatMap((page) => [
-    [page, "skills/hopper-integrate/references"],
-    [page, "skills/hopper-diagnose/references"],
-  ]),
+  ...["livekit.md", "pipecat.md", "vapi.md", "openai-sdk.md"].map((page) => [page, "skills/hopper-integrate/references"]),
 ];
 const fromIndex = process.argv.indexOf("--from");
 const from = fromIndex > 0 ? process.argv[fromIndex + 1] : null;

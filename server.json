@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.withhopper/hopper",
   "title": "Hopper",
-  "description": "LLM, speech and transcription for voice agents: models, guides, latency review, API keys.",
-  "version": "1.2.3",
+  "description": "Realtime inference for open-source models: DeepSeek V4.1 Flash, Gemma 4, Qwen 3 TTS, Nemotron ASR.",
+  "version": "1.3.0",
   "repository": {
     "url": "https://github.com/hopper-inc/plugins",
     "source": "github"

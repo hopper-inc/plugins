@@ -3,7 +3,22 @@
   "mcpServers": {
     "hopper": {
       "type": "streamable-http",
-      "url": "https://withhopper.com/mcp"
+      "url": "https://withhopper.com/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "mixed",
+            "client": {
+              "mode": "cimd"
+            },
+            "baseScopes": [
+              "account:read",
+              "keys:write",
+              "audio"
+            ]
+          }
+        }
+      }
     }
   }
 }

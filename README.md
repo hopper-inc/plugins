@@ -1,10 +1,10 @@
 # Hopper plugins
 
-Plugins for [Hopper](https://withhopper.com): fast open-source LLM inference for voice agents.
+Plugins for [Hopper](https://withhopper.com): a realtime inference API for open-source models in your agent (DeepSeek V4.1 Flash, Gemma 4 31B, Qwen 3 TTS, Nemotron ASR).
 
 | Plugin | What it does |
 | :--- | :--- |
-| [`hopper`](hopper/) | LLM inference for voice agents, and a voice and ears for any agent: set Hopper up in a voice-agent project, benchmark and diagnose time to first token, speak text and transcribe recordings. Skills that call Hopper's API directly. |
+| [`hopper`](hopper/) | Test DeepSeek V4.1 Flash and Gemma 4 31B on your own prompts, point your project's OpenAI-compatible client at them, speak text and transcribe recordings. Skills plus the Hopper connector (`withhopper.com/mcp`). |
 | [`hopper-announce`](hopper-announce/) | Claude Code says out loud when a long task finishes. Claude Code only (hooks). |
 
 ## Install
@@ -33,8 +33,9 @@ server.json                          MCP Registry listing (com.withhopper/hopper
 hopper/
   .claude-plugin/plugin.json         Claude Code manifest
   plugin.json                        Agent Plugins manifest + OpenAI listing (Codex, ChatGPT, Cursor, Copilot)
-  skills/<skill>/                    hopper-{integrate,benchmark,diagnose,speak,transcribe}, each self-contained:
-    scripts/ · references/           copies of https://withhopper.com/agents/*
+  mcp.json · .mcp.json               the connector: portable (with OpenAI's auth block) and Claude Code formats
+  skills/<skill>/                    hopper-{try,integrate,speak,transcribe}, each self-contained:
+    scripts/ · references/           copies of https://withhopper.com/agents/* (hopper_try.py and hopper_voice.py originate here)
   .codex-plugin/plugin.json          Codex layout, generated from plugin.json by tools/sync.mjs
   evals/                             eval cases with fixture projects; triggers.json for skill collisions
 hopper-announce/                     Claude Code plugin: two hooks + one settings skill
@@ -53,7 +54,7 @@ node tools/sync.mjs --check                           # bundled copies match the
 claude --plugin-dir hopper                  # try it in Claude Code
 claude plugin eval hopper --tag offline --scaffold --trust-plugin --allow-tools Bash Write Edit
 node tools/run-evals.mjs --host codex --tag offline   # the same cases in Codex (or --host claude)
-node tools/run-evals.mjs --host claude --triggers      # which skill loads for 21 prompts, including ones that should load none
+node tools/run-evals.mjs --host claude --triggers      # which skill loads for 35 prompts, including ones that should load none
 ```
 
 `--tag live` cases register a real trial key and call the production API; run them before a release, not in a loop.
