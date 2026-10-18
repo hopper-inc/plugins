@@ -2,7 +2,7 @@
   "name": "hopper",
   "displayName": "Hopper",
   "version": "1.3.0",
-  "description": "Realtime inference API for open-source models in your agent: DeepSeek V4.1 Flash and Gemma 4 31B, plus Qwen 3 TTS and Nemotron ASR. Test the models on your own prompts, add a key to your code, speak text and transcribe audio.",
+  "description": "Realtime inference API for open-source models in your agent: two LLMs, text-to-speech and speech-to-text. Try the latest open-source models on your own prompts, add a key to your code, speak text and transcribe audio.",
   "author": {
     "name": "Hopper",
     "email": "founders@withhopper.com",
@@ -15,11 +15,6 @@
     "llm",
     "inference",
     "open-source models",
-    "deepseek",
-    "deepseek v4.1 flash",
-    "gemma",
-    "gemma 4",
-    "openai-compatible",
     "api",
     "agents",
     "model comparison",
@@ -27,6 +22,9 @@
     "speech to text",
     "tts",
     "stt",
-    "transcription"
+    "transcription",
+    "open-source llm",
+    "latest open-source models",
+    "chat completions api"
   ]
 }
