@@ -1,6 +1,6 @@
 // Runs the plugin's eval cases in Claude Code or Codex, under your normal login.
 //
-//   node tools/run-evals.mjs --host claude|codex [--tag offline] [--case diagnose-slow] [--runs 1] [--baseline]
+//   node tools/run-evals.mjs --host claude|codex [--tag offline] [--case try-own-prompts] [--runs 1] [--baseline]
 //
 // `claude plugin eval` is the reference harness for Claude Code, but its runs start in a
 // sealed home and need CLAUDE_CODE_OAUTH_TOKEN or ANTHROPIC_API_KEY; Codex has no eval

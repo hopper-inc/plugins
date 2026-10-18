@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hopper",
-  "version": "1.2.3",
-  "description": "LLM, text-to-speech and speech-to-text for voice agents and AI agents: set Hopper up in a voice-agent project, measure time to first token on its own prompt, find what slows it down, and speak or transcribe audio.",
+  "version": "1.3.0",
+  "description": "Realtime inference API for open-source models in your agent: DeepSeek V4.1 Flash and Gemma 4 31B, plus Qwen 3 TTS and Nemotron ASR. Test the models on your own prompts, add a key to your code, speak text and transcribe audio.",
   "author": {
     "name": "Hopper",
     "email": "founders@withhopper.com",
@@ -12,18 +12,17 @@
   "repository": "https://github.com/hopper-inc/plugins",
   "license": "MIT",
   "keywords": [
-    "voice agents",
-    "voice ai",
     "llm",
     "inference",
-    "latency",
-    "ttft",
-    "prompt caching",
-    "pipecat",
-    "livekit",
-    "vapi",
-    "openai-compatible",
+    "open-source models",
+    "deepseek",
+    "deepseek v4.1 flash",
     "gemma",
+    "gemma 4",
+    "openai-compatible",
+    "api",
+    "agents",
+    "model comparison",
     "text to speech",
     "speech to text",
     "tts",
@@ -34,8 +33,8 @@
     "com.openai": {
       "interface": {
         "displayName": "Hopper",
-        "shortDescription": "Voice AI inference for agents",
-        "longDescription": "Hopper serves open-source models for real-time voice agents: a low-latency LLM behind a standard chat-completions API, plus text-to-speech and speech-to-text. Hopper speaks text with an inline audio player, transcribes recordings you attach (WAV, MP3, M4A, Ogg, FLAC or WebM) with word timestamps, lists models and prices, returns tested integration code for popular voice-agent frameworks, and reviews a voice agent's prompt, tools and client code for what delays its first reply. After you sign in with your Hopper account, it shows your usage and creates API keys. Where it can run commands in your project, the plugin also sets Hopper up in a voice-agent codebase: it measures time to first token on the agent's own system prompt and tools in a 10-turn simulated call and shows the results before changing any code, and after you say go it switches only the LLM. Text and audio you send go to Hopper's API; see withhopper.com/privacy.",
+        "shortDescription": "Open-source models for agents",
+        "longDescription": "Hopper is a realtime inference API for open-source models: DeepSeek V4.1 Flash and Gemma 4 31B for text, Qwen 3 TTS for speech and Nemotron ASR for transcription, behind an OpenAI-compatible API. In a chat, Hopper runs your own prompt or examples on DeepSeek V4.1 Flash and Gemma 4 31B side by side and returns each answer with time to first token, tokens per second, token counts and cost, so you can judge the models on your task. It also speaks text with an inline audio player, transcribes recordings you attach (WAV, MP3, M4A, Ogg, FLAC or WebM) with word timestamps, lists models and prices, and returns tested client code for the OpenAI SDK, LiveKit Agents, Pipecat and Vapi. After you sign in with your Hopper account, it shows your usage and creates API keys: the key opens once in the Hopper console, with a ready snippet for your code. Where it can run commands in your project, the plugin also finds the prompts your app sends and tests them on both models, and after you say go it points your project's OpenAI-compatible client at a Hopper model, changing only the client. Text and audio you send go to Hopper's API; see withhopper.com/privacy.",
         "developerName": "Hopper",
         "category": "Developer Tools",
         "capabilities": [
@@ -48,21 +47,39 @@
         "privacyPolicyURL": "https://withhopper.com/privacy",
         "termsOfServiceURL": "https://withhopper.com/terms",
         "defaultPrompt": [
-          "Make my voice agent respond faster with Hopper",
-          "Why does my voice agent pause before answering?",
-          "Say \"Thanks for calling, how can I help?\" in a Hopper voice"
+          "Test DeepSeek V4.1 Flash on a prompt from my app",
+          "Compare Gemma 4 and DeepSeek on this prompt",
+          "Read this aloud in a natural voice"
         ],
         "brandColor": "#3B82F6",
         "composerIcon": "./assets/icon.png",
         "logo": "./assets/logo.png"
       },
-      "onboardingSkill": "./skills/hopper-integrate/SKILL.md",
+      "onboardingSkill": "./skills/hopper-try/SKILL.md",
       "review": {
         "test_cases": {
           "positive": [
             {
+              "description": "Compare two open models on the user's prompt",
+              "prompt": "Compare Gemma 4 and DeepSeek V4.1 Flash on this support prompt: system \"You are a concise support agent for an online furniture store.\", user \"My sofa arrived with a torn cushion. What can I do?\"",
+              "tools_triggered": "generate",
+              "expected_behavior": "Runs the prompt on deepseek-v4.1-flash and gemma-4-31b with generate and shows both answers side by side, each with time to first token, tokens per second and cost, followed by a one-line verdict. It offers an API key as a next step without creating one."
+            },
+            {
+              "description": "Try a new model on the user's own examples",
+              "prompt": "There's a new DeepSeek model. Try it on this: \"Extract the order number and the issue as JSON with keys order_number and issue: Hi, order 58213 never arrived.\"",
+              "tools_triggered": "generate",
+              "expected_behavior": "Calls generate with the user's text on DeepSeek V4.1 Flash (and Gemma 4 31B for comparison), shows the JSON each returned with its metrics, and says whether each output is valid JSON with the requested keys."
+            },
+            {
+              "description": "API key and code snippet after sign-in",
+              "prompt": "I want to call DeepSeek V4.1 Flash from my Python app. Create a Hopper API key named my-app and show me the code.",
+              "tools_triggered": "create_api_key",
+              "expected_behavior": "Asks the user to connect their Hopper account if needed, then creates the key and replies with the one-time link to copy it in the Hopper console, the HOPPER_API_KEY line and a Python snippet using https://api.withhopper.com/v1 with model deepseek-v4.1-flash. The full key never appears in the chat."
+            },
+            {
               "description": "Speak text aloud",
-              "prompt": "Say \"Thanks for calling Bright Smile Dental, how can I help?\" in a Hopper voice.",
+              "prompt": "Read this aloud: \"Thanks for calling Bright Smile Dental, how can I help?\"",
               "tools_triggered": "speak",
               "expected_behavior": "Shows Hopper's inline audio player with the voice name and duration; pressing Play plays the sentence. The reply names the voice and does not paste audio data."
             },
@@ -71,24 +88,6 @@
               "prompt": "(Attach a short voicemail as an .m4a or .mp3 file) Transcribe this voicemail and tell me what the caller wants.",
               "tools_triggered": "transcribe",
               "expected_behavior": "Passes the attached file to transcribe and replies with the transcript and a one-line summary of the request."
-            },
-            {
-              "description": "Integration code for a framework",
-              "prompt": "Show me how to use Hopper as the LLM in my Pipecat voice agent.",
-              "tools_triggered": "get_integration_guide",
-              "expected_behavior": "Returns Hopper's tested Pipecat integration: the OpenAI-compatible client pointed at https://api.withhopper.com/v1 with HTTP/2, and the warm-up call, without inventing other packages."
-            },
-            {
-              "description": "Latency review of a prompt",
-              "prompt": "Review this voice agent system prompt for latency problems: \"Current time: 2026-09-30T10:00:00Z. Call ID: 81f2. You are Ava, a support agent. Use transfer_call if the caller is angry.\" I send no tools.",
-              "tools_triggered": "review_voice_agent_config",
-              "expected_behavior": "Reports that the timestamp and call ID at the top defeat prompt caching and that transfer_call is named but not sent, each with a fix."
-            },
-            {
-              "description": "Account balance after sign-in",
-              "prompt": "How many Hopper credits do I have left, and what have I spent?",
-              "tools_triggered": "get_account",
-              "expected_behavior": "Asks the user to connect their Hopper account if needed, then reports remaining credits, spend and request counts from the tool, with API keys shown only as masked prefixes."
             }
           ],
           "negative": [
@@ -97,21 +96,21 @@
               "prompt": "Delete all of my Hopper API keys."
             },
             {
-              "description": "No other users' data",
-              "prompt": "Show me the usage of another Hopper customer's account."
+              "description": "Local model serving is out of scope",
+              "prompt": "Run DeepSeek locally on my laptop with Ollama."
             },
             {
-              "description": "Not a general-purpose chat model",
+              "description": "Not a general-purpose assistant",
               "prompt": "Book me a flight to Austin next Tuesday."
             }
           ]
         },
         "commerce": false,
-        "commerce_description": "This plugin doesn't sell products or process payments. Credits are bought in the Hopper console, outside ChatGPT.",
+        "commerce_description": "This plugin doesn't sell products or process payments.",
         "demo_recording_url": "https://drive.google.com/file/d/1IuERJLuFf8w6YcslVPGs-BrGFDi-Qb3V/view?usp=sharing"
       },
       "publication": {
-        "release_notes": "Skills to integrate, benchmark and diagnose voice agents on Hopper, speak and transcribe audio, and the Hopper connector (models, integration guides, latency review, speech, transcription, account and API keys)."
+        "release_notes": "Run your own prompts on DeepSeek V4.1 Flash and Gemma 4 31B side by side with time to first token, tokens per second and cost (generate tool and the new hopper-try skill, now the onboarding skill). Create an API key with a ready code snippet. hopper-integrate now moves any OpenAI-compatible project to a Hopper model. Speech (Qwen 3 TTS) and transcription (Nemotron ASR) use the connector in ChatGPT. The connector declares its sign-in so signed-in requests use your account. Removed the voice-agent latency review and benchmark skills."
       }
     }
   }

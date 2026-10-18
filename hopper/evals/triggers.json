@@ -1,6 +1,78 @@
 [
   {
-    "prompt": "Make my voice agent respond faster by moving its LLM to Hopper.",
+    "prompt": "There's a new DeepSeek model, how is it? Test it for my use case.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "DeepSeek V4.1 Flash any good? Try it on my prompts.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Is Gemma 4 worth trying for this bot?",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Give the new DeepSeek a vibe check on the prompt in prompt.txt.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Try this prompt on a few open models: 'Summarize this support ticket in one line.'",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Run our real prompts through DeepSeek and show me the outputs.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Gemma 4 vs DeepSeek for this, which one?",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Try Hopper.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Could an open model replace GPT-4.1 here?",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Is DeepSeek a drop-in replacement for OpenAI on this bot?",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Worth switching to an open model?",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Does DeepSeek handle our function calls reliably? Check with the tools in tools.py.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Check if Gemma returns valid JSON for our schema.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "How fast would this bot's LLM be on Hopper? Just measure it, don't change anything.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Benchmark time to first token for my prompt on Hopper's models.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Compare tokens per second for DeepSeek and Gemma on our system prompt.",
+    "skill": "hopper-try"
+  },
+  {
+    "prompt": "Switch this bot's LLM to DeepSeek V4.1 Flash on Hopper.",
+    "skill": "hopper-integrate"
+  },
+  {
+    "prompt": "Swap the LLM in bot.py for Hopper's Gemma 4 model.",
+    "skill": "hopper-integrate"
+  },
+  {
+    "prompt": "Point our OpenAI base_url at Hopper.",
     "skill": "hopper-integrate"
   },
   {
@@ -8,32 +80,12 @@
     "skill": "hopper-integrate"
   },
   {
-    "prompt": "Swap this bot's LLM for Hopper's gemma model.",
+    "prompt": "The DeepSeek results looked good. Go ahead and move the bot to it on Hopper.",
     "skill": "hopper-integrate"
   },
   {
-    "prompt": "How fast would this agent's LLM be on Hopper? Just measure it, don't change anything.",
-    "skill": "hopper-benchmark"
-  },
-  {
-    "prompt": "Is prompt caching working for my agent on Hopper? I want numbers.",
-    "skill": "hopper-benchmark"
-  },
-  {
-    "prompt": "Benchmark time to first token for this bot on Hopper.",
-    "skill": "hopper-benchmark"
-  },
-  {
-    "prompt": "Callers say there's dead air before the bot answers. Why?",
-    "skill": "hopper-diagnose"
-  },
-  {
-    "prompt": "Review my voice agent for anything that slows the first reply.",
-    "skill": "hopper-diagnose"
-  },
-  {
-    "prompt": "The first reply of every call is slow. What's wrong with my setup?",
-    "skill": "hopper-diagnose"
+    "prompt": "Add a Hopper API key to this repo and wire it into the LLM client.",
+    "skill": "hopper-integrate"
   },
   {
     "prompt": "Read the first line of prompt.txt aloud.",
@@ -72,7 +124,11 @@
     "skill": null
   },
   {
-    "prompt": "Explain what the pipeline in bot.py does.",
+    "prompt": "Run DeepSeek locally with Ollama.",
+    "skill": null
+  },
+  {
+    "prompt": "Improve the system prompt in prompt.txt so it's clearer.",
     "skill": null
   },
   {
@@ -81,6 +137,38 @@
   },
   {
     "prompt": "Fix any typos in prompt.txt.",
+    "skill": null
+  },
+  {
+    "prompt": "Make the audio for my launch video from launch-script.txt.",
+    "skill": "hopper-speak"
+  },
+  {
+    "prompt": "I need a voiceover for our product launch video, here's the script: \"Meet Hopper. Open models, one call away.\"",
+    "skill": "hopper-speak"
+  },
+  {
+    "prompt": "Narrate this demo script so I can drop it into my screen recording.",
+    "skill": "hopper-speak"
+  },
+  {
+    "prompt": "Check my video demo.mp4 and tell me if I say anything wrong.",
+    "skill": "hopper-transcribe"
+  },
+  {
+    "prompt": "Make subtitles for launch.mov.",
+    "skill": "hopper-transcribe"
+  },
+  {
+    "prompt": "Pull the best quotes from interview.m4a.",
+    "skill": "hopper-transcribe"
+  },
+  {
+    "prompt": "Generate the visuals for my launch video.",
+    "skill": null
+  },
+  {
+    "prompt": "Add background music to my launch video.",
     "skill": null
   }
 ]

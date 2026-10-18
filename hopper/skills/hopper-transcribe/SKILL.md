@@ -1,12 +1,12 @@
 ---
 name: hopper-transcribe
-description: 'Transcribe speech in an audio or video file with Hopper speech-to-text, with word timestamps. Takes WAV, MP3, M4A, voice memos and video (decoded with ffmpeg). Needs no setup: the first use registers a key for the agent itself. Use when the user says "transcribe this", "what does this recording say", "speech to text", "STT", "summarize this call" or "caption this". Not for generating audio (hopper-speak) or measuring LLM latency (hopper-benchmark).'
+description: 'Transcribe speech in an audio or video file with Hopper speech-to-text (Nemotron ASR), with word timestamps. Takes WAV, MP3, M4A, voice memos and video such as MP4 or MOV (decoded with ffmpeg). Needs no setup: the first use registers a key for the agent itself. Use when the user says "transcribe this", "what does this recording say", "check my video", "what''s said in this video", "review the voiceover in my launch video", "captions for my video", "subtitles", "caption this", "meeting notes from this recording", "summarize this call", "pull quotes from this interview", "speech to text" or "STT". Works from the spoken words only, not the visuals. Not for generating audio (hopper-speak) or running an LLM (hopper-try).'
 allowed-tools: Bash(python3 ${CLAUDE_SKILL_DIR}/scripts/hopper_voice.py *)
 ---
 
 # Transcribe with Hopper
 
-Use this skill's script, not the Hopper connector's tools, whenever you can run commands: it reads files on this machine directly, any format and uses this agent's own Hopper key, so its usage can move to the user's account later. The connector's `speak` and `transcribe` tools are for apps without a shell.
+**Pick the path first.** In ChatGPT, or wherever the shell can't reach Hopper's API, use the Hopper connector's `transcribe` tool: pass an attached file as it is (`audio_file`), or a public URL. ChatGPT's sandbox can't resolve Hopper's domains, so the script fails there. Where you can run commands with network access (Codex CLI, Claude Code), use this skill's script instead: it reads files on this machine directly, in any format, and uses this agent's own Hopper key, so its usage can move to the user's account later.
 
 `${CLAUDE_SKILL_DIR}` is the folder holding this file (if your host doesn't fill it in, use that folder's absolute path). The script needs network access to `withhopper.com` and `api.withhopper.com`, and writes the agent's key to `~/.config/hopper/`. In a sandbox (Codex), request escalated permissions for the first command, with the reason "Use Hopper transcription: create this agent's own Hopper key and transcribe the audio (network to withhopper.com; writes ~/.config/hopper)", and suggest allowing commands that start with `python3` and this script's path so later calls don't ask again. Exit code 3 (`HOPPER_SANDBOX_BLOCKED`) means the sandbox blocked it: rerun the same command with escalation. If the user declines, say Hopper couldn't run and ask how to continue; don't switch to another tool silently. Explicit instructions from the user override these steps.
 
@@ -37,6 +37,6 @@ The agent's own key starts with a small trial credit. When it runs low the scrip
 2. If they agree, confirm their email (`git config user.email` is a good guess) and run `claim <email> --no-wait`. Show the link and the 6-digit code; the user enters the code on withhopper.com, never in this chat.
 3. Run `claim <email>` to wait. When it prints `Claimed`, carry on: the script uses the account key from then on, with the same history.
 
-## In a voice agent's code
+## In an application's code
 
-To add Hopper speech-to-text to an application, follow https://docs.withhopper.com/stt: `POST https://api.withhopper.com/v1/audio/transcriptions` (`model: nemotron-asr`, 16-bit PCM or WAV) for files, or the WebSocket stream for live audio.
+To add Hopper speech-to-text (Nemotron ASR) to an application, follow https://docs.withhopper.com/stt: `POST https://api.withhopper.com/v1/audio/transcriptions` (`model: nemotron-asr`, 16-bit PCM or WAV) for files, or the WebSocket stream for live audio.

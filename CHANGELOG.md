@@ -2,6 +2,17 @@
 
 Versions follow the `version` in each plugin's manifest; `tools/check.mjs` keeps the manifests and `server.json` in step.
 
+## hopper 1.3.0
+
+- Positioning: a realtime inference API for open-source models in your agent (DeepSeek V4.1 Flash, Gemma 4 31B, Qwen 3 TTS, Nemotron ASR); no voice-agent branding in the listing, manifests or skills.
+- Connector auth: `mcp.json` declares `extensions["com.openai"].auth` (`mixed`, CIMD client, scopes `account:read keys:write audio`), so ChatGPT sends the user's token after sign-in instead of calling `/mcp` anonymously. `.mcp.json` (Claude Code) is unchanged.
+- New skill `hopper-try`: runs the user's own prompts (found in the project, or pasted) on DeepSeek V4.1 Flash and Gemma 4 31B side by side with time to first token, tokens per second and cost, a verdict per example, then offers a key or a switch. Uses the connector's `generate` tool where present and `scripts/hopper_try.py` (stdlib, streaming, optional `--tools`) where a shell has network. It is the new onboarding skill, with a first run that reaches a live answer in under a minute.
+- `hopper-integrate`: from voice agents to any OpenAI-compatible project (OpenAI SDK Python/JS, LangChain, Vercel AI SDK, LiteLLM, raw HTTP, LiveKit, Pipecat, Vapi), with DeepSeek's thinking switch; key via `hopper_trial.py` or the connector's `create_api_key`. Voice agents keep the time-to-first-token run. Still edits only after the user says go.
+- Removed `hopper-diagnose` and `hopper-benchmark` (benchmarking folds into `hopper-try`), their eval cases and unused fixtures; `tools/sync.mjs` no longer copies files into them.
+- `hopper-speak` / `hopper-transcribe`: name Qwen 3 TTS / Nemotron ASR, and use the connector's `speak` / `transcribe` in ChatGPT, whose sandbox can't reach Hopper's API.
+- Listing: new description, short description, long description, keywords, default prompts and review test cases (generate ×2, create_api_key, speak, transcribe; negatives: delete keys, Ollama, flight booking). `review_voice_agent_config` is gone from the connector and the listing.
+- Evals: `triggers.json` rewritten for the new lineup (35 prompts); new `try-own-prompts` live case.
+
 ## hopper 1.2.3
 
 - Review: demo recording URL for the OpenAI submission.
