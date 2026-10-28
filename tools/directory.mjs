@@ -46,6 +46,7 @@ const files = new Map();
   const manifest = JSON.parse(read(".claude-plugin/plugin.json"));
   manifest.description = DESCRIPTION;
   manifest.keywords = manifest.keywords.filter((k) => !["text to speech", "tts"].includes(k));
+  manifest.privacyPolicyUrl = "https://withhopper.com/privacy";
   files.set(".claude-plugin/plugin.json", `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
