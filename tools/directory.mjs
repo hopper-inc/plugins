@@ -52,6 +52,8 @@ const files = new Map();
 
 files.set(".mcp.json", `${JSON.stringify({ mcpServers: { hopper: { type: "http", url: MCP_URL } } }, null, 2)}\n`);
 files.set("LICENSE", read("LICENSE"));
+// The directory reads .claude-plugin/icon.png as the listing icon, once, at the first save.
+files.set(".claude-plugin/icon.png", readFileSync(join(source, "assets", "icon.png")));
 
 // Skills, copied as they are, except where they point at hopper-speak.
 const walk = (dir) =>
@@ -175,7 +177,8 @@ const existing = existsSync(target)
 if (check) {
   for (const [path, text] of files) {
     const full = join(target, path);
-    if (!existsSync(full) || readFileSync(full, "utf8") !== text) {
+    const same = existsSync(full) && (Buffer.isBuffer(text) ? readFileSync(full).equals(text) : readFileSync(full, "utf8") === text);
+    if (!same) {
       drifted++;
       console.error(`out of date: claude-directory/hopper/${path}`);
     }
