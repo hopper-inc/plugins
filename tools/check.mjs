@@ -157,6 +157,12 @@ for (const skill of readdirSync(join(plugin, "skills"))) {
 }
 checkPlugin(plugin);
 checkPlugin(join(root, "hopper-announce"));
+checkPlugin(join(root, "claude-directory", "hopper"));
+try {
+  execFileSync("node", [join(root, "tools", "directory.mjs"), "--check"], { stdio: "inherit" });
+} catch {
+  fail("claude-directory/hopper is out of date: run node tools/directory.mjs");
+}
 
 if (errors.length) {
   for (const message of errors) console.error(`✗ ${message}`);
@@ -170,4 +176,4 @@ try {
   console.log("claude not installed: skipped `claude plugin validate`");
   process.exit(0);
 }
-for (const target of [plugin, join(root, "hopper-announce"), root]) execFileSync("claude", ["plugin", "validate", "--strict", target], { stdio: "inherit" });
+for (const target of [plugin, join(root, "hopper-announce"), join(root, "claude-directory", "hopper"), root]) execFileSync("claude", ["plugin", "validate", "--strict", target], { stdio: "inherit" });

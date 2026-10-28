@@ -1,0 +1,5 @@
+interface:
+  display_name: "Switch to Hopper"
+  short_description: "Point a project's LLM calls at a Hopper model"
+  brand_color: "#3B82F6"
+  default_prompt: "Use $hopper-integrate to move this project's LLM calls to DeepSeek V4.1 Flash on Hopper."
