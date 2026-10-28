@@ -2,6 +2,10 @@
 
 Versions follow the `version` in each plugin's manifest; `tools/check.mjs` keeps the manifests and `server.json` in step.
 
+## Claude directory copy (hopper 1.3.0)
+
+- `claude-directory/hopper`: the plugin as submitted to Claude's plugin directory, generated from `hopper/` by `tools/directory.mjs` (checked by `tools/check.mjs`). Anthropic's Software Directory Policy doesn't list software that generates audio, so it has no `hopper-speak` skill, no speak or voices commands in the transcribe script, and its connector is `https://withhopper.com/mcp/claude` (the MCP server without `speak` and `list_voices`). `hopper/` and the self-hosted marketplace are unchanged.
+
 ## hopper 1.3.0
 
 - Positioning: a realtime inference API for open-source models in your agent (DeepSeek V4.1 Flash, Gemma 4 31B, Qwen 3 TTS, Nemotron ASR); no voice-agent branding in the listing, manifests or skills.

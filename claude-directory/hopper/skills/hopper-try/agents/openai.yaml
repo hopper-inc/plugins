@@ -1,0 +1,5 @@
+interface:
+  display_name: "Try Hopper models"
+  short_description: "Run your prompts on DeepSeek V4.1 Flash and Gemma 4"
+  brand_color: "#3B82F6"
+  default_prompt: "Use $hopper-try to test DeepSeek V4.1 Flash and Gemma 4 31B on a prompt from my app."
